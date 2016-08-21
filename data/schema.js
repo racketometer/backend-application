@@ -14,6 +14,7 @@ type User {
 # the schema allows the following two queries:
 type Query {
   login(username: String, password: String): User
+  users: [User]
 }
 
 # we need to tell the server which types represent the root query
