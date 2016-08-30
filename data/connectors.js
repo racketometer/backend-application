@@ -9,6 +9,8 @@ const mongo = Mongoose.connect('mongodb://localhost:27017/test', (err) => {
 const UserSchema = Mongoose.Schema({
   username: String,
   password: String,
+  email: String,
+  role: String,
   age: Number,
   joinedAt: String,
 })

@@ -2,11 +2,20 @@ import { Users } from './connectors';
 
 const resolvers = {
   Query: {
-    login(_, { username, password }) {
-      return new Promise((resolve, reject) => {
-        setTimeout( () => reject('MongoDB timeout when fetching user (timeout is 500ms)'), 500);
-        Users.findOne( { "username": username, "password": password } ).then(
-          (user) => resolve( { key: "somekey", role: "someRole", age: user.age, joinedAt: user.joinedAt }));
+    login: (_, { email, pw }) => {
+      return Users.findOne({ "email": email, "password": pw });
+    }
+  },
+  Mutation: {
+    createUser: (root, { email, pw }) => {
+      return Users.findOne({ "email": email, "password": pw }).then( (user) => {
+        if (!user) return null
+
+        return Users.create({ email: email, password: pw, joinedAt: new Date().toString(), age: 2, role: "boho" }, (err, user) => {
+          if(err) return err;
+
+          return user;
+        })
       });
     }
   }
