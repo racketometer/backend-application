@@ -1,5 +1,7 @@
 import express from 'express';
-import { apolloServer, addErrorLoggingToSchema } from 'graphql-tools';
+import { apolloExpress, graphiqlExpress } from 'apollo-server';
+import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
+import bodyParser from 'body-parser';
 import Schema from './data/schema';
 import Mocks from './data/mocks';
 import Resolvers from './data/resolvers';
@@ -7,13 +9,21 @@ import Resolvers from './data/resolvers';
 const GRAPHQL_PORT = 8080;
 
 var graphQLServer = express();
-graphQLServer.use('/graphql', apolloServer({
-  graphiql: true,
-  pretty: true,
-  schema: Schema,
-  resolvers: Resolvers,
 
+const executableSchema =  makeExecutableSchema({
+  typeDefs: Schema,
+  resolvers: Resolvers,
+  allowDefaultResolve: true
+});
+
+graphQLServer.use('/graphql', bodyParser.json(), apolloExpress({
+  schema: executableSchema,
 }));
+
+graphQLServer.use('/graphql', graphiqlExpress({
+  endpointURL: "/graphql",
+}));
+
 graphQLServer.listen(GRAPHQL_PORT, () => console.log(
   `GraphQL Server is now running on http://localhost:${GRAPHQL_PORT}/graphql`
 ));

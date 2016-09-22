@@ -16,14 +16,15 @@ const UserSchema = Mongoose.Schema({
   isCoach: Boolean,
   birthday: Date,
   startedPlaying: Date,
-  coaches: [{ _id, name }],
-  friends: [{ _id, name }],
+  coaches: [{ _id: String, name: String }],
+  friends: [{ _id: String, name: String }],
+},{
   timestamps: true
 })
 
 const MeasurementSchema = Mongoose.Schema({
   date: Date,
-  uploadedBy: Schema.Types.ObjectId,
+  uploadedBy: Mongoose.Schema.Types.ObjectId,
   data: [Number],
   strokes: Number,
   strokeType: [String],
@@ -32,7 +33,8 @@ const MeasurementSchema = Mongoose.Schema({
   sensorNo: String,
   racketType: String,
   algorithmVersion: String,
-  user_id: Schema.Types.ObjectId,
+  user_id: Mongoose.Schema.Types.ObjectId,
+},{
   timestamps: true
 })
 
