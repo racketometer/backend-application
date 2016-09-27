@@ -6,7 +6,7 @@ import RootQuery from "./query";
 import RootMutation from "./mutation";
 
 // Import types
-import User from "./user"
-import Measurement from "./measurement"
+import User from "./user";
+import Measurement from "./measurement";
 
 export default [SchemaDefinition, RootQuery, RootMutation, User, Measurement];

@@ -1,26 +1,27 @@
+const UserRef = `
+  type UserRef {
+    _id: String,
+    name: String
+  }
+`;
+
 const User = `
   type User {
+    _id: String,
     displayName: String,
     email: String,
-    password: String,
     firstName: String,
     lastName: String,
     isConsultant: Boolean,  
     isCoach: Boolean,
     birthday: String,
     startedPlaying: String,
-    coaches: [String],
-    friends: [String],
+    coaches: [ UserRef ],
+    friends: [ UserRef ],
     createdAt: String,
-    updatedAt: String
+    updatedAt: String,
+    measurements: [ Measurement ]
   }
-`
+`;
 
-const UserRef = `
-  type UserRef {
-    _id: String,
-    name: String
-  }
-`
-
-export default User;
+export default () => [UserRef, User];

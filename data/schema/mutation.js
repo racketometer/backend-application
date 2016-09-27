@@ -5,6 +5,6 @@ const RootMutation = `
       password: String!
     ): User
   }
-`
+`;
 
 export default RootMutation;

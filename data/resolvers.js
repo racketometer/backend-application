@@ -1,23 +1,39 @@
-import { Users } from './connectors';
+import { User, Measurement } from './connectors';
 
 const resolvers = {
   Query: {
-    login: (_, { email, pw }) => {
-      return Users.findOne({ "email": email, "password": pw });
+    login: (_, { email, password }) => {
+      return User.findOne({ "email": email, "password": password });
+    },
+    getMeasurements: (_, { userId }) => {
+      return Measurement.find({ "user_id": userId });
     }
   },
   Mutation: {
-    createUser: (root, { email, pw }) => {
-      return Users.findOne({ "email": email, "password": pw }).then( (user) => {
+    createUser: (root, { email, password }) => {
+      return User.findOne({ "email": email, "password": password }).then( (user) => {
         if (!user) return null
 
-        return Users.create({ email: email, password: pw, joinedAt: new Date().toString(), age: 2, role: "boho" }, (err, user) => {
+        return User.create({ email: email, password: password }, (err, user) => {
           if(err) return err;
 
           return user;
         })
       });
     }
+  },
+  User: {
+    measurements(user) {
+      return Measurement.find({ "user_id": user._id });
+    }
+  },
+  Measurement: {
+    user(measurement) {
+      return User.findOne({"_id": measurement.user_id})
+    },
+    uploadedBy(measurement) {
+      return User.findOne({"_id": measurement.uploadedBy})
+    },
   }
 }
 

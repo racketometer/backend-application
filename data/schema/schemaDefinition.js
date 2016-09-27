@@ -3,6 +3,6 @@ const SchemaDefinition = `
     query: Query
     mutation: Mutation
   }
-`
+`;
 
 export default SchemaDefinition;

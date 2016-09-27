@@ -1,7 +1,7 @@
 const Measurement = `
   type Measurement {
     date: String,
-    uploadedBy: String,
+    uploadedBy: User,
     data: [Int],
     strokes: Int,
     strokeType: [String],
@@ -10,10 +10,10 @@ const Measurement = `
     sensorNo: String,
     racketType: String,
     algorithmVersion: String,
-    user_id: String,
+    user: User,
     createdAt: String,
     updatedAt: String
   }
-`
+`;
 
 export default Measurement;

@@ -1,10 +1,6 @@
 import Mongoose from "mongoose";
-
-const mongo = Mongoose.connect("mongodb://localhost:27017/test", (err) => {
-  if(err){
-    console.error("Could not connect to MongoDB on port 27017");
-  }
-});
+import seeder from "mongoose-seeder";
+import data from "../mongo-seed.json";
 
 const UserSchema = Mongoose.Schema({
   displayName: String,
@@ -14,8 +10,8 @@ const UserSchema = Mongoose.Schema({
   lastName: String,
   isConsultant: Boolean,  
   isCoach: Boolean,
-  birthday: Date,
-  startedPlaying: Date,
+  birthday: { type: Date, get: v => v.toISOString() },
+  startedPlaying: { type: Date, get: v => v.toISOString() },
   coaches: [{ _id: String, name: String }],
   friends: [{ _id: String, name: String }],
 },{
@@ -36,11 +32,24 @@ const MeasurementSchema = Mongoose.Schema({
   user_id: Mongoose.Schema.Types.ObjectId,
 },{
   timestamps: true
-})
+});
 
-const Users = Mongoose.model("user", UserSchema);
+const User = Mongoose.model("User", UserSchema);
 
-const Measurements = Mongoose.model("measurement", MeasurementSchema);
+const Measurement = Mongoose.model("Measurement", MeasurementSchema);
+
+const mongo = Mongoose.connect("mongodb://localhost:27017/test", (err) => {
+  if(err){
+    console.error("Could not connect to MongoDB on port 27017");
+  } else {
+    seeder.seed(data, { dropCollections: false }).then((dbData) => {
+      // The database objects are stored in dbData
+    }).catch(function(err) {
+      // handle error
+      console.log(err);
+    });
+  }
+});
 
 // export models
-export { Users, Measurements };
+export { User, Measurement };
