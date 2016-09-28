@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "declaration": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": [
+      "es6",
+      "dom"
+    ],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "dist",
+    "sourceMap": true,
+    "target": "es6",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "types": [
+      "graphql-tools/node_modules/typed-graphql",
+      "../types/mongoose-seeder"
+    ]
+  },
+  "files": [
+    "./src/server.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

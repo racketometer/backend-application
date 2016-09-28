@@ -8,3 +8,7 @@
 2. Fire up Mongo by writting "mongod" in the terminal
 4. npm install
 5. npm start
+
+## Development
+Transpile TypeScript with `npm run tsc` or `npm run tscw` to watch source files.
+Start the server in another terminal with `npm start`.

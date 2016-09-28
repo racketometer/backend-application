@@ -6,7 +6,7 @@ const Measurement = `
     strokes: Int,
     strokeType: [String],
     maxRacketSpeed: Int,
-    maxShuttlecockSpeed: Int, 
+    maxShuttlecockSpeed: Int,
     sensorNo: String,
     racketType: String,
     algorithmVersion: String,

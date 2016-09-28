@@ -12,7 +12,7 @@ const User = `
     email: String,
     firstName: String,
     lastName: String,
-    isConsultant: Boolean,  
+    isConsultant: Boolean,
     isCoach: Boolean,
     birthday: String,
     startedPlaying: String,
