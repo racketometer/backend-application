@@ -1,0 +1,8 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "editor.trimAutoWhitespace": true,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "files.trimTrailingWhitespace": true,
+  "editor.tabSize": 2
+}
