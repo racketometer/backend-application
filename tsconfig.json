@@ -16,8 +16,7 @@
       "node_modules/@types"
     ],
     "types": [
-      "graphql-tools/node_modules/typed-graphql",
-      "../types/mongoose-seeder"
+      "graphql-tools/node_modules/typed-graphql"
     ]
   },
   "files": [
