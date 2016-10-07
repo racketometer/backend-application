@@ -2,7 +2,7 @@ const Measurement = `
   type Measurement {
     date: String,
     uploadedBy: User,
-    data: [Int],
+    data: [[Int]],
     strokes: Int,
     strokeType: [String],
     maxRacketSpeed: Int,
