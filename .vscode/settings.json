@@ -4,5 +4,12 @@
   "editor.trimAutoWhitespace": true,
   "diffEditor.ignoreTrimWhitespace": false,
   "files.trimTrailingWhitespace": true,
-  "editor.tabSize": 2
+  "editor.tabSize": 2,
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/.DS_Store": true,
+    "dist": true
+  }
 }
