@@ -5,6 +5,7 @@
   "scripts": {
     "tsc": "rimraf dist && tsc",
     "tscw": "rimraf dist && tsc  -w",
+    "mongodb": "mongod --dbpath=C:/data --port 27017",
     "start": "nodemon --exec npm run babel-node --delay 1.5 --watch dist dist/server.js",
     "babel-node": "babel-node"
   },
