@@ -14,6 +14,7 @@ const User = `
     lastName: String,
     isConsultant: Boolean,
     isCoach: Boolean,
+    allowSharing: Boolean,
     birthday: String,
     startedPlaying: String,
     coaches: [ UserRef ],
@@ -24,4 +25,15 @@ const User = `
   }
 `;
 
-export default () => [UserRef, User];
+const AutoUser = `
+  input AutoUser {
+    firstName: String!,
+    lastName: String!,
+    email: String!,
+    birthday: String!,
+    startedPlaying: String!,
+    allowSharing: Boolean!
+  }
+`;
+
+export default () => [UserRef, User, AutoUser];

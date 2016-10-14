@@ -4,6 +4,9 @@ const RootMutation = `
       email: String!
       password: String!
     ): User
+    createAutoUser(
+      user: AutoUser!
+    ): User
   }
 `;
 

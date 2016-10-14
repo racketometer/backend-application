@@ -1,4 +1,5 @@
 import { User, Measurement } from "./connectors";
+import { mutations } from "./mutations";
 
 const resolvers = {
   Query: {
@@ -9,23 +10,7 @@ const resolvers = {
       return Measurement.find({ "user_id": userId });
     },
   },
-  Mutation: {
-    createUser: (root, { email, password }) => {
-      return User.findOne({ "email": email, "password": password }).then((user) => {
-        if (!user) {
-          return null;
-        }
-
-        return User.create({ email: email, password: password }, (err, newUser) => {
-          if (err) {
-            return err;
-          }
-
-          return newUser;
-        });
-      });
-    },
-  },
+  Mutation: mutations,
   User: {
     measurements(user) {
       return Measurement.find({ "user_id": user._id });
