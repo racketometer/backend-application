@@ -26,6 +26,7 @@ const data = {
       "lastName": "Bravo",
       "isConsultant": "false",
       "isCoach": "false",
+      "allowSharing": "false",
       "birthday": "2016-09-27T11:39:22.993Z",
       "startedPlaying": "2016-09-27T11:39:22.993Z",
       "coaches": [

@@ -11,6 +11,7 @@ export interface IUser extends Document {
   lastName: string;
   isConsultant: boolean;
   isCoach: boolean;
+  allowSharing: boolean;
   birthday: Date;
   startedPlaying: Date;
   coaches: Array<{_id: string, name: string}>;
@@ -26,6 +27,7 @@ export const UserSchema = new Schema(
     lastName: String,
     isConsultant: Boolean,
     isCoach: Boolean,
+    allowSharing: Boolean,
     birthday: Date,
     startedPlaying: Date,
     coaches: [{ _id: String, name: String }],

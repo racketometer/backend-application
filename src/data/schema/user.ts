@@ -14,6 +14,7 @@ const User = `
     lastName: String,
     isConsultant: Boolean,
     isCoach: Boolean,
+    allowSharing: Boolean,
     birthday: String,
     startedPlaying: String,
     coaches: [ UserRef ],
