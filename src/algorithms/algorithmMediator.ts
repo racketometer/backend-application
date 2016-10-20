@@ -1,4 +1,3 @@
-import { MongoosePromise } from "mongoose";
 import {
   AnalysisAlgorithm,
   IAnalysisResult,
@@ -16,7 +15,7 @@ export class AlgorithmMediator {
   /**
    * Analyse a measurement and update result fields.
    */
-  public getAnalysis(): MongoosePromise<void> {
+  public getAnalysis(): Promise<void> {
     return Measurement.findOne({ "sensorNo": "123141" })
       .then((document) => this.calculateFeatures(document));
   }
