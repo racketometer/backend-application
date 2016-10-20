@@ -10,7 +10,7 @@ export const createUser = (root, { email, password }) => {
       }
 
       return User.create({ email, password })
-        .then(() => {
+        .then((user) => {
           const ms = new MailService();
           ms.sendMail(new Email(
             email,
@@ -18,6 +18,7 @@ export const createUser = (root, { email, password }) => {
             `Your password is:${password}`,
             `<b>Your password is:${password}<b>`
           ));
+          return user;
         })
         .catch((err) => {
           console.log("CreateUser: Error creating user", err);
