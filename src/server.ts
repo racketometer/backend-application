@@ -1,4 +1,5 @@
 import * as express from "express";
+import * as mongoose from "mongoose";
 import { apolloExpress, graphiqlExpress } from "apollo-server";
 import { makeExecutableSchema } from "graphql-tools";
 import { json } from "body-parser";
@@ -9,6 +10,8 @@ import { MongooseConnection } from "./data/connectors";
 import { AlgorithmMediator } from "./algorithms";
 
 const GRAPHQL_PORT = 8080;
+
+(mongoose as any).Promise = global.Promise;
 
 const graphQLServer = express();
 
@@ -35,4 +38,3 @@ graphQLServer.listen(GRAPHQL_PORT, () => {
     algorithmMediator.getAnalysis();
   });
 });
-
