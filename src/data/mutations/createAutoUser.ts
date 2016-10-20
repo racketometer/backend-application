@@ -16,8 +16,9 @@ export const createAutoUser = (root, { user }: IAutoUserArgument) => {
       user.isConsultant = false;
       user.isCoach = false;
 
-      console.warn("CreateAutoUser: Set default password: '1234'");
-      user.password = "1234";
+      // Generate 8 character long password found at:
+      // http://stackoverflow.com/a/9719815
+      user.password = Math.random().toString(36).slice(-8);;
 
       return User.create(user)
         .then((user) => {
