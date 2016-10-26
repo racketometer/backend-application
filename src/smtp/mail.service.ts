@@ -13,17 +13,21 @@ export class MailService {
   /**
    * Send email.
    */
-  public sendMail(email: Email): IMailResponse {
-    if (email.isValid) {
-      this.transporter.sendMail(this.emailToMailOptions(email), (error, info) => {
-        if (error) {
-          return this.createResponse(error.message);
-        }
-        return this.createResponse("OK");
-      });
-    } else {
-      return this.createResponse("Invalid email adresse");
-    }
+  public sendMail(email: Email): Promise<IMailResponse> {
+    return new Promise<IMailResponse>((resolve, reject) => {
+
+      if (email.isValid()) {
+        this.transporter.sendMail(this.emailToMailOptions(email), (error, info) => {
+          if (error) {
+            return reject(this.createResponse("Error sending mail: " + error));
+          }
+          return resolve(this.createResponse("OK"));
+        });
+      } else {
+        return reject(this.createResponse("Invalid email adresse"));
+      }
+
+    });
   }
 
   /**
@@ -43,19 +47,16 @@ export class MailService {
    * the received message
    */
   private createResponse(message: string): IMailResponse {
-    let response: IMailResponse;
-
     if (message === "OK") {
-      response = {
+      return {
         success: true,
         message: "OK",
       };
     } else {
-      response = {
+      return {
         success: false,
         message: message,
       };
     }
-    return response;
   }
 }
