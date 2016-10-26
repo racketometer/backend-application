@@ -17,17 +17,17 @@ export const changePassword = (root, user: ILogin) => {
 
       existingUser.password = user.newPassword;
 
-      return existingUser.save().then(newUser => {
-        console.log(`Password changed for ${existingUser.email} to '${existingUser.password}'`);
+      return existingUser.save()
+        .then(newUser => {
+          console.log(`Password changed for ${existingUser.email} to '${existingUser.password}'`);
 
-        const ms = new MailService();
-        return ms.sendMail(new Email(
-          existingUser.email,
-          "Password changed for Racket O Meter",
-          `Your password has been changed.`,
-          `<b>Your password has been changed.<b>`
-        )).then(() => existingUser);
-      });
-
+          const ms = new MailService();
+          return ms.sendMail(new Email(
+            existingUser.email,
+            "Password changed for Racket O Meter",
+            `Your password has been changed.`,
+            `<b>Your password has been changed.<b>`
+          )).then(() => existingUser);
+        });
     });
 };
