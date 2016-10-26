@@ -1,3 +1,15 @@
-export * from "./createUser";
+export * from "./changePassword";
 export * from "./createAutoUser";
-export * from "./mutations";
+export * from "./createUser";
+
+import {
+  changePassword,
+  createAutoUser,
+  createUser,
+} from "./";
+
+export const mutations = {
+  changePassword,
+  createAutoUser,
+  createUser,
+};
