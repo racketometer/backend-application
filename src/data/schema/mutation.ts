@@ -7,6 +7,11 @@ const RootMutation = `
     createAutoUser(
       user: AutoUser!
     ): User
+    changePassword(
+      email: String!
+      oldPassword: String!
+      newPassword: String!
+    ): User
   }
 `;
 
