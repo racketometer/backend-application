@@ -9,19 +9,11 @@
     ],
     "module": "commonjs",
     "moduleResolution": "node",
-    "outDir": "dist",
-    "sourceMap": true,
-    "target": "es6",
+    "target": "es5",
     "typeRoots": [
       "node_modules/@types"
-    ],
-    "types": [
-      "graphql-tools/node_modules/typed-graphql"
     ]
   },
-  "files": [
-    "./src/server.ts"
-  ],
   "exclude": [
     "node_modules"
   ]
