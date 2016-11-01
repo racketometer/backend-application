@@ -17,6 +17,7 @@ const data = {
       "friends": [
         { "name": "->users.johnny", "_id": "->users.johnny" },
       ],
+      "token": "token1",
     },
     "johnny": {
       "displayName": "jonny",
@@ -35,6 +36,7 @@ const data = {
       "friends": [
         { "name": "->users.coach.displayName", "_id": "->users.coach" },
       ],
+      "token": "token2",
     },
   },
   "measurements": {

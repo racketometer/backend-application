@@ -1,5 +1,5 @@
-import { User } from "../connectors";
-import { MailService, Email } from "../../smtp";
+import { User } from "../../connectors";
+import { MailService, Email } from "../../../smtp";
 
 export const createUser = (root, { email, password }) => {
   return User.findOne({ email })

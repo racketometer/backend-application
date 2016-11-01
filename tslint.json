@@ -3,6 +3,7 @@
   "rules": {
     "use-strict": [true],
     "no-console": [false],
+    "no-var-requires": false,
     "object-literal-sort-keys": false
   }
 }

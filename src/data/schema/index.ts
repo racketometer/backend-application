@@ -1,12 +1,14 @@
 // Import schema definition
-import SchemaDefinition from "./schemaDefinition";
+const SchemaDefinition = require("./schemaDefinition.graphql");
 
 // Import query and mutation
-import RootQuery from "./query";
-import RootMutation from "./mutation";
+const RootQuery = require("./query.graphql");
+const RootMutation = require("./mutation.graphql");
+const MutationViewer = require("./mutationViewer.graphql");
 
 // Import types
-import User from "./user";
-import Measurement from "./measurement";
+const User = require("./user.graphql");
+const Measurement = require("./measurement.graphql");
+const Viewer = require("./viewer.graphql");
 
-export default [SchemaDefinition, RootQuery, RootMutation, User, Measurement];
+export default [SchemaDefinition, RootQuery, RootMutation, User, Measurement, Viewer, MutationViewer];

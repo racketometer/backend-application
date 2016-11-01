@@ -1,5 +1,5 @@
-import { User, IUser } from "../connectors";
-import { MailService, Email } from "../../smtp";
+import { User, IUser } from "../../connectors";
+import { MailService, Email } from "../../../smtp";
 
 export interface ILogin {
   email: string;

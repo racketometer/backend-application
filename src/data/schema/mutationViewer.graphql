@@ -1,0 +1,17 @@
+# Mutations restricted by viewer
+type MutationViewer {
+  createUser(
+    email: String!
+    password: String!
+  ): User
+
+  createAutoUser(
+    user: AutoUser!
+  ): User
+
+  changePassword(
+    email: String!
+    oldPassword: String!
+    newPassword: String!
+  ): User
+}
