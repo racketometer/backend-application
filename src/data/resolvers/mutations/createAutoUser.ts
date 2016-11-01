@@ -1,4 +1,4 @@
-import { User, IUser } from "../../connectors";
+import { User, IUser } from "../../models";
 import { MailService, Email } from "../../../smtp";
 
 export interface IAutoUserArgument {
@@ -6,7 +6,7 @@ export interface IAutoUserArgument {
 }
 
 export const createAutoUser: (root: Object, arg: IAutoUserArgument) => Promise<IUser> = (root, { user }) => {
-  return User.findOne({ email: user.email })
+  return User.findOneByEmail(user.email)
     .then((existingUser: IUser) => {
       if (existingUser) {
         console.log("CreateAutoUser: Email in use");

@@ -1,8 +1,8 @@
-import { User } from "../../connectors";
+import { User } from "../../models";
 import { MailService, Email } from "../../../smtp";
 
 export const createUser = (root, { email, password }) => {
-  return User.findOne({ email })
+  return User.findOneByEmail(email)
     .then((existingUser) => {
       if (existingUser) {
         console.log("CreateUser: Email in use");
