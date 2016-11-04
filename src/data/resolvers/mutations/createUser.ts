@@ -1,8 +1,13 @@
-import { User } from "../connectors";
-import { MailService, Email } from "../../smtp";
+import { User, IUser, IViewer } from "../../models";
+import { MailService, Email } from "../../../smtp";
 
-export const createUser = (root, { email, password }) => {
-  return User.findOne({ email })
+export interface ICreateUserArgument {
+  email: string;
+  password: string;
+}
+
+export const createUser: (root: IViewer, arg: ICreateUserArgument) => Promise<IUser> = (root, { email, password }) => {
+  return User.findOneByEmail(email)
     .then((existingUser) => {
       if (existingUser) {
         console.log("CreateUser: Email in use");

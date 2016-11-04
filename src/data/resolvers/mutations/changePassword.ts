@@ -1,23 +1,22 @@
-import { User, IUser } from "../connectors";
-import { MailService, Email } from "../../smtp";
+import { User, IUser, IViewer } from "../../models";
+import { MailService, Email } from "../../../smtp";
 
-export interface ILogin {
-  email: string;
+export interface IChangePasswordArg {
   oldPassword: string;
   newPassword: string;
 }
 
-export const changePassword = (root, user: ILogin) => {
-  return User.findOne({ email: user.email })
+export const changePassword: (root: IViewer, arg: IChangePasswordArg) => Promise<IUser> = (viewer, user) => {
+  return User.findOneByToken(viewer.token)
     .then((existingUser: IUser) => {
       if (!existingUser || user.oldPassword !== existingUser.password) {
-        console.log(`No user found for email or password not correct: ${user.email}`);
+        console.log(`No user found for token or password not correct: ${viewer.token}`);
         throw Error("No user found for email or password not correct");
       }
 
       existingUser.password = user.newPassword;
 
-      return existingUser.save()
+      return User.save(existingUser)
         .then(newUser => {
           console.log(`Password changed for ${existingUser.email} to '${existingUser.password}'`);
 

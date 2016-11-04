@@ -1,12 +1,12 @@
-import { User, IUser } from "../connectors";
-import { MailService, Email } from "../../smtp";
+import { User, IUser, IViewer } from "../../models";
+import { MailService, Email } from "../../../smtp";
 
 export interface IAutoUserArgument {
   user: IUser;
 }
 
-export const createAutoUser = (root, { user }: IAutoUserArgument) => {
-  return User.findOne({ email: user.email })
+export const createAutoUser: (root: IViewer, arg: IAutoUserArgument) => Promise<IUser> = (root, { user }) => {
+  return User.findOneByEmail(user.email)
     .then((existingUser: IUser) => {
       if (existingUser) {
         console.log("CreateAutoUser: Email in use");
