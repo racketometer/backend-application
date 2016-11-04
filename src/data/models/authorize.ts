@@ -1,4 +1,5 @@
-import { User as db, IUser } from "../connectors";
+import { User as db } from "../connectors";
+import { IUser } from "./user";
 import * as UUID from "node-uuid";
 
 export class Authorize {
@@ -9,15 +10,13 @@ export class Authorize {
    * @param password The users password.
    */
   public static authorize(email: string, password: string): Promise<IUser> {
-    return db.findOne({ email, password }).then((user => {
+    return db.findOne({ email, password }).then((user) => {
       if (!user) {
-        throw ("Could not authorized");
+        throw Error("Could not authorized");
       }
       user.token = UUID.v4();
-      return user.save().then( (ret) => {
-        return ret;
-      });
-    }));
+      return user.save();
+    });
   }
 
   /**
@@ -37,7 +36,9 @@ export class Authorize {
    * Clears authorization on user with id.
    * @param id User id.
    */
-  public static clear(id: string): void {
-    db.remove({ _id: id });
+  public static clear(id: string): Promise<void> {
+    return db.remove({ _id: id }).catch(() => {
+      throw Error()
+    });
   }
 }

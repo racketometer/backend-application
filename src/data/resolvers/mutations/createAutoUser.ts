@@ -1,11 +1,11 @@
-import { User, IUser } from "../../models";
+import { User, IUser, IViewer } from "../../models";
 import { MailService, Email } from "../../../smtp";
 
 export interface IAutoUserArgument {
   user: IUser;
 }
 
-export const createAutoUser: (root: Object, arg: IAutoUserArgument) => Promise<IUser> = (root, { user }) => {
+export const createAutoUser: (root: IViewer, arg: IAutoUserArgument) => Promise<IUser> = (root, { user }) => {
   return User.findOneByEmail(user.email)
     .then((existingUser: IUser) => {
       if (existingUser) {

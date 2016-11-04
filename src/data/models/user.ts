@@ -25,24 +25,24 @@ export class User extends Authorize {
    * Finds User by id.
    * @param id User id.
    */
-  public static findOneById(id: string) {
-    return db.findOne({ _id: id });
+  public static findOneById(id: string): Promise<IUser>  {
+    return db.findOne({ _id: id }).then(user => user);
   }
 
   /**
    * Finds User by token.
    * @param token authentication token.
    */
-  public static findOneByToken(token: string) {
-    return db.findOne({ token });
+  public static findOneByToken(token: string): Promise<IUser> {
+    return db.findOne({ token }).then(user => user);
   }
 
   /**
    * Finds User by email.
    * @param token authentication token.
    */
-  public static findOneByEmail(email: string) {
-    return db.findOne({ email });
+  public static findOneByEmail(email: string): Promise<IUser> {
+    return db.findOne({ email }).then( user => user );
   }
 
   /**
@@ -58,8 +58,6 @@ export class User extends Authorize {
    * @param user User to be updated.
    */
   public static save(user: IUser): Promise<IUser> {
-    return db.findByIdAndUpdate(user._id, user).then( (ret) => {
-      return ret;
-    });
+    return db.findByIdAndUpdate(user._id, user).then(user => user);
   }
 }

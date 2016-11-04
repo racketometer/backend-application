@@ -2,17 +2,17 @@ import * as Mongoose from "mongoose";
 import * as seeder from "mongoose-seeder";
 import { seedData } from "./mongo-seed";
 import {
-  IMeasurement,
-  IUser,
+  IMeasurementModel,
   MeasurementSchema,
   UserSchema,
+  IUserModel,
 } from "./";
 
 export * from "./user";
 export * from "./measurement";
 
-export const Measurement = Mongoose.model<IMeasurement>("Measurement", MeasurementSchema);
-export const User = Mongoose.model<IUser>("User", UserSchema);
+export const Measurement = Mongoose.model<IMeasurementModel>("Measurement", MeasurementSchema);
+export const User = Mongoose.model<IUserModel>("User", UserSchema);
 
 export const MongooseConnection = Mongoose.connect("mongodb://localhost:27017/test")
   .catch((connectError) => {

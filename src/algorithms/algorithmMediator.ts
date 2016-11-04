@@ -3,7 +3,7 @@ import {
   IAnalysisResult,
 } from "./";
 
-import { Measurement, IMeasurement } from "../data/connectors";
+import { Measurement, IMeasurementModel } from "../data/connectors";
 
 export class AlgorithmMediator {
   private analysisAlgorithm: AnalysisAlgorithm;
@@ -24,7 +24,7 @@ export class AlgorithmMediator {
    * Calculate features and update measurement.
    * @param document The measurement.
    */
-  private calculateFeatures(document: IMeasurement): Promise<void> {
+  private calculateFeatures(document: IMeasurementModel): Promise<void> {
     const data = document.data;
 
     return this.analysisAlgorithm.getResults(data)
@@ -36,7 +36,7 @@ export class AlgorithmMediator {
    * @param document The measurement to update.
    * @param result The analysis result.
    */
-  private updateMeasurement(document: IMeasurement, result: IAnalysisResult): void {
+  private updateMeasurement(document: IMeasurementModel, result: IAnalysisResult): void {
     document.strokes = result.strokes;
     document.maxRacketSpeed = result.linear.speed;
     document.maxShuttlecockSpeed = result.shuttlecock.speed;

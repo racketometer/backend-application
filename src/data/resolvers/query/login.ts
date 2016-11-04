@@ -1,6 +1,11 @@
-import { User } from "../../models";
+import { User, IViewer } from "../../models";
 
-export const login = (root, { email, password }) => {
+export interface ILoginArgument {
+  email: string;
+  password: string;
+}
+
+export const login: (viewer: IViewer, ILogin) => Promise<IViewer> = (root, { email, password }) => {
   return User.authorize(email, password).then((user) => {
     const viewer = {
       _id: user._id,

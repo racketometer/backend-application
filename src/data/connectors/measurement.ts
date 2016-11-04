@@ -1,20 +1,12 @@
+import { IMeasurement } from "../models";
+
 import {
   Document,
   Schema,
 } from "mongoose";
 
-export interface IMeasurement extends Document {
-  date: Date;
-  uploadedBy: string;
-  data: Array<Array<number>>;
-  strokes: number;
-  strokeTypes: Array<string>;
-  maxRacketSpeed: number;
-  maxShuttlecockSpeed: number;
-  sensorNo: string;
-  racketType: string;
-  algorithmVersion: string;
-  user_id: string;
+export interface IMeasurementModel extends IMeasurement, Document {
+  _id: string;
 }
 
 export const MeasurementSchema = new Schema(

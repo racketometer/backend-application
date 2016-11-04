@@ -1,6 +1,12 @@
-import { Measurement } from "../../models";
+import { Measurement, IMeasurement, IUser } from "../../models";
 
-export const measurements = (viewer, { userId }) => {
+export interface IViewerMeasurement {
+  userId: string;
+}
+
+type MeasurementResolver = (root: IUser, userId: IViewerMeasurement ) => Promise<IMeasurement>
+
+export const measurements: MeasurementResolver = (viewer, { userId }) => {
   if (userId) {
     return Measurement.findManyByUserId(userId);
   }

@@ -1,7 +1,7 @@
 export * from "./changePassword";
 export * from "./createAutoUser";
 export * from "./createUser";
-export * from "./mutation";
+export * from "./viewer";
 
 import {
   changePassword,

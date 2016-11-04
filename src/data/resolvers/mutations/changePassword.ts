@@ -1,12 +1,12 @@
-import { User, IUser } from "../../models";
+import { User, IUser, IViewer } from "../../models";
 import { MailService, Email } from "../../../smtp";
 
-export interface ILogin {
+export interface IChangePasswordArg {
   oldPassword: string;
   newPassword: string;
 }
 
-export const changePassword = (viewer, user: ILogin) => {
+export const changePassword: (root: IViewer, arg: IChangePasswordArg) => Promise<IUser> = (viewer, user) => {
   return User.findOneByToken(viewer.token)
     .then((existingUser: IUser) => {
       if (!existingUser || user.oldPassword !== existingUser.password) {
