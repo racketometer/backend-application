@@ -1,4 +1,7 @@
 # backend-application
+[![Build Status](https://travis-ci.org/racketometer/backend-application.svg?branch=master)](https://travis-ci.org/racketometer/backend-application)
+[![dependencies Status](https://david-dm.org/racketometer/backend-application/status.svg)](https://david-dm.org/racketometer/backend-application)
+[![devDependencies Status](https://david-dm.org/racketometer/backend-application/dev-status.svg)](https://david-dm.org/racketometer/backend-application?type=dev)
 
 ### Apollo Server application using MongoDB
 
