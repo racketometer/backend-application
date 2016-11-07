@@ -17,8 +17,8 @@ export interface IUser {
   coaches?: Array<{ _id: string, name: string }>;
   friends?: Array<{ _id: string, name: string }>;
   token?: string;
-  updatedAt: Date;
-  createdAt: Date;
+  updatedAt?: Date;
+  createdAt?: Date;
 }
 
 export class User extends Authorize {
