@@ -12,7 +12,7 @@ export class Authorize {
   public static authorize(email: string, password: string): Promise<IUser> {
     return db.findOne({ email, password }).then((user) => {
       if (!user) {
-        throw Error("Could not authorized");
+        throw Error("Could not authorize");
       }
       user.token = UUID.v4();
       return user.save();
@@ -24,6 +24,10 @@ export class Authorize {
    * @param token Token to authorize.
    */
   public static isAuthorized(token: string): Promise<IUser> {
+    if (!token) {
+      throw Error("Token not set");
+    }
+
     return db.findOne({ token }).then((user) => {
       if (!user) {
         throw Error("Not authorized");

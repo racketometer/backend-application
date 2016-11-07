@@ -10,7 +10,6 @@ type MutationViewer {
   ): User
 
   changePassword(
-    email: String!
     oldPassword: String!
     newPassword: String!
   ): User
