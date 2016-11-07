@@ -37,8 +37,12 @@ export class Authorize {
    * @param id User id.
    */
   public static clear(id: string): Promise<void> {
-    return db.remove({ _id: id }).catch(() => {
-      throw Error()
+    return db.findById(id).then((doc) => {
+      doc.token = null;
+      return doc.save();
+    })
+    .catch(() => {
+      throw Error();
     });
   }
 }

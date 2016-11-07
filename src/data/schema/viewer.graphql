@@ -4,5 +4,4 @@ type Viewer {
   token: String
   user: User
   measurements(userId: String): [ Measurement ]
-  logout(test: String): Boolean
 }
