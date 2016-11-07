@@ -23,7 +23,9 @@ export const createAutoUser: (root: IViewer, arg: IAutoUserArgument) => Promise<
 
       return User.create(user)
         .then((createdUser) => {
+          /* tslint:disable:max-line-length */
           console.log(`CreateAutoUser: Added ${createdUser.firstName} ${createdUser.lastName} with default password: '${createdUser.password}'`);
+          /* tslint:enable:max-line-length */
 
           const ms = new MailService();
 
