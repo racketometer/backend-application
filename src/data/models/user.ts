@@ -17,6 +17,8 @@ export interface IUser {
   coaches?: Array<{ _id: string, name: string }>;
   friends?: Array<{ _id: string, name: string }>;
   token?: string;
+  updatedAt: Date;
+  createdAt: Date;
 }
 
 export class User extends Authorize {
@@ -58,6 +60,7 @@ export class User extends Authorize {
    * @param user User to be updated.
    */
   public static save(user: IUser): Promise<IUser> {
+    user.updatedAt = new Date();
     return db.findByIdAndUpdate(user._id, user, { new: true }).then(doc => doc);
   }
 }
