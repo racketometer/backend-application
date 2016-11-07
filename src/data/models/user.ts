@@ -58,6 +58,6 @@ export class User extends Authorize {
    * @param user User to be updated.
    */
   public static save(user: IUser): Promise<IUser> {
-    return db.findByIdAndUpdate(user._id, user).then(user => user);
+    return db.findByIdAndUpdate(user._id, user, { new: true }).then(doc => doc);
   }
 }
