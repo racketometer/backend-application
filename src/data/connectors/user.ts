@@ -6,7 +6,7 @@ import {
 import { IUser } from "../models";
 
 export interface IUserModel extends IUser, Document {
-  _id: string
+  _id: string;
 }
 
 export const UserSchema = new Schema(

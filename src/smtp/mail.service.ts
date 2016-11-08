@@ -4,7 +4,7 @@ import { IMailResponse } from "./IMailResponse";
 
 export class MailService {
   private transporter: Transporter;
-  private from = "'Mailgun Sandbox' <postmaster@sandbox1eb8c6413a794f788fe668e6978bcf42.mailgun.org>"
+  private from = "'Mailgun Sandbox' <postmaster@sandbox1eb8c6413a794f788fe668e6978bcf42.mailgun.org>";
 
   constructor() {
     this.transporter = createTransport();

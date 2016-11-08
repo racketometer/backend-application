@@ -6,7 +6,9 @@
     "mongodb": "mongod --dbpath=C:/data --port 27017",
     "nodemon": "nodemon --watch dist dist/server.js",
     "ts": "webpack --watch",
-    "start": "concurrently \"npm run ts\" \"npm run nodemon\""
+    "build": "webpack",
+    "start": "concurrently \"npm run ts\" \"npm run nodemon\"",
+    "tslint": "tslint \"src/**/*.ts\""
   },
   "repository": {
     "type": "git",
