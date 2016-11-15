@@ -46,7 +46,7 @@
     "mongoose-seeder": "1.2.1",
     "node-uuid": "1.4.7",
     "nodemailer": "2.6.4",
-    "optics-agent": "^1.0.0"
+    "optics-agent": "1.0.0"
   },
   "devDependencies": {
     "@types/mongoose-seeder": "1.2.2",
