@@ -28,7 +28,7 @@ export class User extends Authorize {
    * @param id User id.
    */
   public static findOneById(id: string): Promise<IUser>  {
-    return db.findOne({ _id: id }).then(user => user);
+    return db.findById(id).then(user => user);
   }
 
   /**
