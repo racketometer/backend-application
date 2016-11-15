@@ -1,11 +1,14 @@
 import * as express from "express";
 import * as mongoose from "mongoose";
-import { apolloExpress, graphiqlExpress } from "apollo-server";
+import { graphqlExpress, graphiqlExpress } from "graphql-server-express";
 import { makeExecutableSchema } from "graphql-tools";
-import { json } from "body-parser";
+import * as bodyParser from "body-parser";
 import Schema from "./data/schema";
 import Resolvers from "./data/resolvers";
 import { MongooseConnection } from "./data/connectors";
+import * as http from "http";
+
+import OpticsAgent from "optics-agent";
 
 import { AlgorithmMediator } from "./algorithms";
 
@@ -13,7 +16,7 @@ const GRAPHQL_PORT = 8080;
 
 (mongoose as any).Promise = global.Promise;
 
-const graphQLServer = express();
+const app = express();
 
 const executableSchema = makeExecutableSchema({
   typeDefs: Schema,
@@ -21,15 +24,26 @@ const executableSchema = makeExecutableSchema({
   resolverValidationOptions: { requireResolversForNonScalar: false },
 });
 
-graphQLServer.use("/graphql", json(), apolloExpress({
-  schema: executableSchema,
+OpticsAgent.instrumentSchema(executableSchema);
+
+app.use(OpticsAgent.middleware());
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+app.use("/graphql", graphqlExpress((req) => {
+
+  return {
+    schema: executableSchema,
+    context: { opticsContext: OpticsAgent.context(req) },
+  };
 }));
 
-graphQLServer.use("/graphiql", graphiqlExpress({
+app.use("/graphiql", graphiqlExpress({
   endpointURL: "/graphql",
 }));
 
-graphQLServer.listen(GRAPHQL_PORT, () => {
+app.listen(GRAPHQL_PORT, () => {
   console.log(`GraphQL Server is now running on http://localhost:${GRAPHQL_PORT}/graphql`);
   console.log(`GraphiQL Server is now running on http://localhost:${GRAPHQL_PORT}/graphiql`);
 
@@ -38,3 +52,5 @@ graphQLServer.listen(GRAPHQL_PORT, () => {
     algorithmMediator.getAnalysis();
   });
 });
+
+export const server = http.createServer(app);
