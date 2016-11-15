@@ -1,5 +1,4 @@
 
-import * as request from "request";
 import * as sinon from "sinon";
 import { expect } from "chai";
 import * as http from "http";
