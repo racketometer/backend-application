@@ -62,6 +62,7 @@
     "mocha": "3.1.2",
     "nodemon": "1.11.0",
     "raw-loader": "0.5.1",
+    "request": "^2.78.0",
     "rimraf": "2.5.4",
     "sinon": "1.17.6",
     "ts-node": "^1.7.0",
