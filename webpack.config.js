@@ -4,10 +4,10 @@ var fs = require('fs');
 
 var nodeModules = {};
 fs.readdirSync('node_modules')
-  .filter(function(x) {
+  .filter(function (x) {
     return ['.bin'].indexOf(x) === -1;
   })
-  .forEach(function(mod) {
+  .forEach(function (mod) {
     nodeModules[mod] = 'commonjs ' + mod;
   });
 
@@ -22,7 +22,9 @@ module.exports = {
   resolve: {
     extensions: ["", ".ts", ".js", ".json"]
   },
-  externals: nodeModules,
+  externals: [
+    nodeModules
+  ],
   devtool: "eval-source-map",
   module: {
     loaders: [
@@ -36,5 +38,9 @@ module.exports = {
         loader: "raw-loader"
       }
     ]
-  }
+  },
+  node: {
+    fs: "empty",
+    child_process: "empty"
+  },
 }

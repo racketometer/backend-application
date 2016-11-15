@@ -2,3 +2,4 @@ node_modules/
 npm-debug.log
 dist/
 !types/mongoose-seeder/node_modules
+.tmp/

@@ -9,7 +9,7 @@
     "build": "webpack",
     "start": "concurrently \"npm run ts\" \"npm run nodemon\"",
     "tslint": "tslint \"src/**/*.ts\"",
-    "test": "mocha --opts mocha.opts"
+    "test": "mocha-webpack --webpack-config webpack.config.js \"spec/**/*.spec.ts\""
   },
   "repository": {
     "type": "git",
@@ -46,6 +46,7 @@
     "body-parser": "1.15.2",
     "email-validator": "1.0.7",
     "express": "4.14.0",
+    "fs": "0.0.1-security",
     "graphql": "0.7.2",
     "graphql-server-express": "0.4.3",
     "graphql-subscriptions": "0.2.1",
@@ -62,6 +63,7 @@
     "chai": "3.5.0",
     "concurrently": "3.1.0",
     "mocha": "3.1.2",
+    "mocha-webpack": "^0.7.0",
     "nodemon": "1.11.0",
     "raw-loader": "0.5.1",
     "request": "2.78.0",
