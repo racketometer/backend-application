@@ -21,14 +21,18 @@ export const changePassword: (root: IViewer, arg: IChangePasswordArg) => Promise
       return User.save(existingUser)
         .then(newUser => {
           console.log(`Password changed for ${newUser.email} to '${newUser.password}'`);
-
-          const ms = new MailService();
-          return ms.sendMail(new Email(
-            existingUser.email,
+          const email = new Email(existingUser.email,
             "Password changed for Racket O Meter",
             `Your password has been changed.`,
-            `<b>Your password has been changed.<b>`
-          )).then(() => existingUser);
+            `<b>Your password has been changed.<b>`);
+
+          if (email.isValid()) {
+            const ms = new MailService();
+            ms.sendMail(email);
+            return existingUser;
+          } else {
+            return Error("Invalid email adresse");
+          }
         });
     });
 };
