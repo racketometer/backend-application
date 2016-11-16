@@ -14,9 +14,12 @@ export * from "./measurement";
 export const Measurement = Mongoose.model<IMeasurementModel>("Measurement", MeasurementSchema);
 export const User = Mongoose.model<IUserModel>("User", UserSchema);
 
-export const MongooseConnection = Mongoose.connect("mongodb://localhost:27017/test")
+const user = process.env.ROM_DB_USER;
+const pw = process.env.ROM_DB_PW;
+
+export const MongooseConnection = Mongoose.connect("mongodb://" + user + ":" + pw + "@ds155737.mlab.com:55737/romdb")
   .catch((connectError) => {
-    console.error("Could not connect to MongoDB on port 27017", connectError);
+    console.error("Could not connect to MongoDB on mlab", connectError);
   })
   .then(() => seeder.seed(seedData, { dropCollections: false }))
   .catch((seedError) => {
