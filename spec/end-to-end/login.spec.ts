@@ -34,7 +34,7 @@ describe("Integration test", function () {
       setTimeout(function () {
         // waiting for seeding to happen
         done();
-      }, 1000);
+      }, 800);
     });
   });
 
