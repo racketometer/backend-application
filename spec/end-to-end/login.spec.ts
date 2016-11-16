@@ -8,6 +8,8 @@ const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 describe("Integration test", function () {
   const baseUrl = "http://localhost:8080/graphql";
 
+  this.timeout(4000);
+
   const payload = JSON.stringify({
     query: `
     query login {
@@ -34,7 +36,7 @@ describe("Integration test", function () {
       setTimeout(function () {
         // waiting for seeding to happen
         done();
-      }, 800);
+      }, 1200);
     });
   });
 
