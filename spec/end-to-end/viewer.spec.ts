@@ -22,6 +22,7 @@ describe("query Viewer", function () {
   let token: string;
   let id: string;
   let payloadViewer: string;
+  let payloadViewerNoToken: string;
 
   beforeEach((done) => {
     let request = new XMLHttpRequest();
@@ -46,6 +47,21 @@ describe("query Viewer", function () {
         variables: {
           token: token,
           userId: id,
+        },
+      });
+
+      payloadViewerNoToken = JSON.stringify({
+        query: `
+          query viewer($token: String!) {
+            viewer(token: $token) {
+              user {
+                _id
+              }
+            }
+          }
+        `,
+        variables: {
+          token: null,
         },
       });
 
@@ -89,5 +105,16 @@ describe("query Viewer", function () {
     request.open("POST", baseUrl);
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     request.send(payloadViewer);
+  });
+
+  it("Not Authorized when token is wrong: status code 400 received", function (done) {
+    let request = new XMLHttpRequest();
+    request.onload = () => {
+      expect(request.status).eq(400);
+      done();
+    };
+    request.open("POST", baseUrl);
+    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    request.send(payloadViewerNoToken);
   });
 });
