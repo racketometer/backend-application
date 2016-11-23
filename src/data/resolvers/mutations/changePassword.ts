@@ -28,7 +28,7 @@ export const changePassword: (root: IViewer, arg: IChangePasswordArg) => Promise
 
           if (email.isValid()) {
             const ms = new MailService();
-            ms.sendMail(email).then(() => existingUser);
+            ms.sendMail(email);
             return existingUser;
           } else {
             return Error("Invalid email adresse");

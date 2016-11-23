@@ -11,6 +11,7 @@ const payload = JSON.stringify({
     query login {
       login(email: "johnny@test.dk", password: "1234") {
         _id
+        token
       }
     }
   `,
@@ -60,7 +61,6 @@ describe("query Viewer", function () {
   it("returns status code 200", function (done) {
     let request = new XMLHttpRequest();
     request.onload = () => {
-      console.log(request);
       expect(request.status).eq(200);
       done();
     };
