@@ -9,6 +9,7 @@
     "build": "webpack",
     "start": "concurrently \"npm run ts\" \"npm run nodemon\"",
     "tslint": "tslint \"src/**/*.ts\"",
+    "coverage": "istanbul cover _mocha -- -R spec",
     "test": "mocha-webpack --webpack-config webpack.config.js --watch \"spec/index.spec.ts\""
   },
   "repository": {
@@ -61,6 +62,7 @@
     "awesome-typescript-loader": "2.2.4",
     "chai": "3.5.0",
     "concurrently": "3.1.0",
+    "istanbul": "^0.4.5",
     "mocha": "3.1.2",
     "mocha-webpack": "0.7.0",
     "nodemon": "1.11.0",

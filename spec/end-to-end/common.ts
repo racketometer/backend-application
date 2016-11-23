@@ -2,6 +2,7 @@ import * as sinon from "sinon";
 import * as http from "http";
 import { expect } from "chai";
 import { server } from "../../src/server";
+import * as Mongoose from "mongoose";
 
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
@@ -15,13 +16,14 @@ describe("Integration test", function () {
       setTimeout(function () {
         // waiting for seeding to happen
         done();
-      }, 2000);
+      }, 2500);
     });
   });
 
   after(() => {
     console.log("--- AFTER!!! ---");
     server.close();
+    Mongoose.disconnect();
   });
 
   require("./login.spec");
