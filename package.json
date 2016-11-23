@@ -9,7 +9,7 @@
     "build": "webpack",
     "start": "concurrently \"npm run ts\" \"npm run nodemon\"",
     "tslint": "tslint \"src/**/*.ts\"",
-    "test": "mocha-webpack --webpack-config webpack.config.js \"spec/**/*.spec.ts\""
+    "test": "mocha-webpack --webpack-config webpack.config.js --watch \"spec/index.spec.ts\""
   },
   "repository": {
     "type": "git",
