@@ -10,7 +10,7 @@
     "start": "concurrently \"npm run ts\" \"npm run nodemon\"",
     "tslint": "tslint \"src/**/*.ts\"",
     "coverage": "istanbul cover _mocha -- -R spec",
-    "test": "mocha-webpack --webpack-config webpack.config.js --watch \"spec/index.spec.ts\""
+    "test": "mocha-webpack --webpack-config webpack.config.js --exit ./spec/index.spec.ts"
   },
   "repository": {
     "type": "git",
