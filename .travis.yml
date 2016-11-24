@@ -16,4 +16,5 @@ script:
   - npm run build
   - npm run test
 
-  after_success: npm run coverage
+after_success:
+  - npm run coverage
