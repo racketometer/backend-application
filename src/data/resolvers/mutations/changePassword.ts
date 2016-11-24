@@ -10,7 +10,6 @@ export const changePassword: (root: IViewer, arg: IChangePasswordArg) => Promise
   return User.findOneByToken(viewer.token)
     .then((existingUser: IUser) => {
       if (!existingUser || user.oldPassword !== existingUser.password) {
-        console.log(`No user found for token or password not correct: ${viewer.token}`);
         throw Error("No user found for token or password not correct");
       }
 
@@ -20,7 +19,6 @@ export const changePassword: (root: IViewer, arg: IChangePasswordArg) => Promise
 
       return User.save(existingUser)
         .then(newUser => {
-          console.log(`Password changed for ${newUser.email} to '${newUser.password}'`);
           const email = new Email(existingUser.email,
             "Password changed for Racket O Meter",
             `Your password has been changed.`,

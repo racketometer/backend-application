@@ -23,7 +23,6 @@ const user = `
     measurements: [ Measurement ]
   }
 
-
   input AutoUser {
     firstName: String!,
     lastName: String!,

@@ -25,7 +25,7 @@ export const createUser: (root: IViewer, arg: ICreateUserArgument) => Promise<IU
           return user;
         })
         .catch((err) => {
-          throw Error("CreateUser: Error creating user")
+          throw Error("CreateUser: Error creating user");
         });
     });
 };
