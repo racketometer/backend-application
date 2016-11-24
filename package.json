@@ -3,14 +3,37 @@
   "version": "0.1.0",
   "description": "Backend application for the Racket O Meter platform.",
   "scripts": {
+    "clean": "rimraf node_modules coverage .nyc_output",
     "mongodb": "mongod --dbpath=C:/data --port 27017",
     "nodemon": "nodemon --watch dist dist/server.js",
     "ts": "webpack --watch",
     "build": "webpack",
     "start": "concurrently \"npm run ts\" \"npm run nodemon\"",
     "tslint": "tslint \"src/**/*.ts\"",
-    "coverage": "istanbul cover _mocha -- -R spec",
-    "test": "mocha-webpack --webpack-config webpack.config.js --exit ./spec/index.spec.ts"
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "test": "nyc --require ts-node/register ./node_modules/.bin/_mocha"
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.ts"
+    ],
+    "exclude": [
+      "node_modules/",
+      "dist/"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "reporter": [
+      "lcov",
+      "text-summary",
+      "html"
+    ],
+    "sourceMap": true,
+    "instrument": true
   },
   "repository": {
     "type": "git",
@@ -22,7 +45,8 @@
     "TypeScript",
     "GraphQL",
     "Express",
-    "Apollo"
+    "Apollo",
+    "Mocha"
   ],
   "author": "Bjørn Sørensen <https://github.com/crevil>, Jesper O. Christensen <https://github.com/Karnich>",
   "license": "MIT",
@@ -48,7 +72,6 @@
     "body-parser": "1.15.2",
     "email-validator": "1.0.7",
     "express": "4.14.0",
-    "fs": "0.0.1-security",
     "graphql": "0.7.2",
     "graphql-subscriptions": "0.2.1",
     "graphql-tools": "0.8.0",
@@ -63,14 +86,13 @@
     "chai": "3.5.0",
     "concurrently": "3.1.0",
     "coveralls": "2.11.15",
-    "istanbul": "^0.4.5",
+    "istanbul": "0.4.5",
     "mocha": "3.1.2",
-    "mocha-webpack": "0.7.0",
     "nodemon": "1.11.0",
     "raw-loader": "0.5.1",
-    "request": "2.78.0",
     "rimraf": "2.5.4",
     "sinon": "1.17.6",
+    "ts-node": "1.7.0",
     "tslint": "3.15.1",
     "typed-graphql": "1.0.2",
     "typescript": "2.0.9",

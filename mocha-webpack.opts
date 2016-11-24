@@ -1,3 +1,0 @@
---reporter dot
---webpack-config webpack.config.js
-spec/**/*.spec.ts

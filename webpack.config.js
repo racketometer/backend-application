@@ -31,11 +31,6 @@ module.exports = {
       {
         test: /\.ts$/,
         loader: "awesome-typescript-loader"
-      },
-      {
-        test: /\.(graphql|gql)$/,
-        exclude: /node_modules/,
-        loader: "raw-loader"
       }
     ]
   },

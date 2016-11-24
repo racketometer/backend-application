@@ -10,7 +10,6 @@ export const createUser: (root: IViewer, arg: ICreateUserArgument) => Promise<IU
   return User.findOneByEmail(email)
     .then((existingUser) => {
       if (existingUser) {
-        console.log("CreateUser: Email in use");
         throw Error("Email in use");
       }
 
@@ -26,7 +25,7 @@ export const createUser: (root: IViewer, arg: ICreateUserArgument) => Promise<IU
           return user;
         })
         .catch((err) => {
-          console.log("CreateUser: Error creating user", err);
+          throw Error("CreateUser: Error creating user")
         });
     });
 };

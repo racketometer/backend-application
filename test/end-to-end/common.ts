@@ -10,7 +10,6 @@ describe("Integration test", function () {
   this.timeout(10000);
 
   before((done) => {
-    console.log("--- BEFORE!!! ---");
     server.listen(3000, "localhost");
     server.on("listening", function () {
       setTimeout(function () {
@@ -21,7 +20,6 @@ describe("Integration test", function () {
   });
 
   after(() => {
-    console.log("--- AFTER!!! ---");
     server.close();
     Mongoose.disconnect();
   });
