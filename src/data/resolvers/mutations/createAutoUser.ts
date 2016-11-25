@@ -9,7 +9,6 @@ export const createAutoUser: (root: IViewer, arg: IAutoUserArgument) => Promise<
   return User.findOneByEmail(user.email)
     .then((existingUser: IUser) => {
       if (existingUser) {
-        console.log("CreateAutoUser: Email in use");
         throw Error("Email in use");
       }
 
@@ -23,10 +22,6 @@ export const createAutoUser: (root: IViewer, arg: IAutoUserArgument) => Promise<
 
       return User.create(user)
         .then((createdUser) => {
-          /* tslint:disable:max-line-length */
-          console.log(`CreateAutoUser: Added ${createdUser.firstName} ${createdUser.lastName} with default password: '${createdUser.password}'`);
-          /* tslint:enable:max-line-length */
-
           const ms = new MailService();
 
           return ms.sendMail(new Email(
@@ -39,7 +34,6 @@ export const createAutoUser: (root: IViewer, arg: IAutoUserArgument) => Promise<
         });
     })
     .catch((err) => {
-      console.log("CreateAutoUser: Error creating user", err);
       return Promise.reject(err);
     });
 };

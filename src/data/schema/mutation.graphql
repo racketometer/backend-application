@@ -1,6 +1,0 @@
-# List of possible mutations
-type Mutation {
-  viewer(
-    token: String!
-  ): MutationViewer
-}

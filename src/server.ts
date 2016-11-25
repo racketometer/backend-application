@@ -6,6 +6,7 @@ import * as bodyParser from "body-parser";
 import Schema from "./data/schema";
 import Resolvers from "./data/resolvers";
 import { MongooseConnection } from "./data/connectors";
+import * as http from "http";
 
 import OpticsAgent from "optics-agent";
 
@@ -51,3 +52,5 @@ app.listen(GRAPHQL_PORT, () => {
     algorithmMediator.getAnalysis();
   });
 });
+
+export const server = http.createServer(app);
