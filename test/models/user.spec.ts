@@ -8,7 +8,6 @@ import { expect } from "chai";
 // http://stackoverflow.com/questions/31591098/how-do-i-stub-new-date-using-sinon
 
 describe("Models: User", () => {
-  let dbStub: Sinon.SinonSpy;
   let sandbox: Sinon.SinonSandbox;
   let clock: Sinon.SinonFakeTimers;
   let today: Date = new Date();

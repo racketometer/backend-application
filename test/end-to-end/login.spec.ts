@@ -26,11 +26,11 @@ const payloadWrongPassword = JSON.stringify({
   `,
 });
 
-describe("query Login", function () {
+describe("query Login", () => {
 
-  it("returns status code 200", function (done) {
+  it("returns status code 200", (done) => {
     let request = new XMLHttpRequest();
-    request.onload = function () {
+    request.onload = () => {
       expect(request.status).eq(200);
       done();
     };
@@ -39,9 +39,9 @@ describe("query Login", function () {
     request.send(payload);
   });
 
-  it("returns user with _id field", function (done) {
+  it("returns user with _id field", (done) => {
     let request = new XMLHttpRequest();
-    request.onload = function () {
+    request.onload = () => {
       expect(request.responseText._id).to.not.be.null;
       done();
     };
@@ -50,9 +50,9 @@ describe("query Login", function () {
     request.send(payload);
   });
 
-  it("returns null when passing wrong password", function (done) {
+  it("returns null when passing wrong password", (done) => {
     let request = new XMLHttpRequest();
-    request.onload = function () {
+    request.onload = () => {
       let obj = JSON.parse(request.responseText);
       expect(obj.data.login).to.be.null;
       done();

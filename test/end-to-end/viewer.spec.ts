@@ -17,7 +17,7 @@ const payload = JSON.stringify({
   `,
 });
 
-describe("query Viewer", function () {
+describe("query Viewer", () => {
 
   let token: string;
   let id: string;
@@ -74,7 +74,7 @@ describe("query Viewer", function () {
 
   });
 
-  it("returns status code 200", function (done) {
+  it("returns status code 200", (done) => {
     let request = new XMLHttpRequest();
     request.onload = () => {
       expect(request.status).eq(200);
@@ -85,7 +85,7 @@ describe("query Viewer", function () {
     request.send(payloadViewer);
   });
 
-  it("returns with a user model", function (done) {
+  it("returns with a user model", (done) => {
     let request = new XMLHttpRequest();
     request.onload = () => {
       expect(JSON.parse(request.responseText).data.viewer.user._id).eq(id);
@@ -96,7 +96,7 @@ describe("query Viewer", function () {
     request.send(payloadViewer);
   });
 
-  it("can get measurements", function (done) {
+  it("can get measurements", (done) => {
     let request = new XMLHttpRequest();
     request.onload = () => {
       expect(JSON.parse(request.responseText).data.viewer.measurements).is.not.null;
@@ -107,7 +107,7 @@ describe("query Viewer", function () {
     request.send(payloadViewer);
   });
 
-  it("Not Authorized when token is wrong: status code 400 received", function (done) {
+  it("Not Authorized when token is wrong: status code 400 received", (done) => {
     let request = new XMLHttpRequest();
     request.onload = () => {
       expect(request.status).eq(400);
