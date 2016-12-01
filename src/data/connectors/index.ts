@@ -14,14 +14,17 @@ export * from "./measurement";
 export const Measurement = Mongoose.model<IMeasurementModel>("Measurement", MeasurementSchema);
 export const User = Mongoose.model<IUserModel>("User", UserSchema);
 
-const user = process.env.ROM_DB_USER;
-const pw = process.env.ROM_DB_PW;
+const ROM_DB_URL = process.env.ROM_DB_URL;
 
-export const MongooseConnection = Mongoose.connect("mongodb://" + user + ":" + pw + "@ds155737.mlab.com:55737/romdb")
+export const MongooseConnection = Mongoose.connect(ROM_DB_URL)
   .catch((connectError) => {
     console.error("Could not connect to MongoDB on mlab", connectError);
   })
-  .then(() => seeder.seed(seedData, { dropCollections: false }))
+  .then(() => {
+    if (process.env.mode === "test") {
+      seeder.seed(seedData, { dropCollections: false });
+    }
+  })
   .catch((seedError) => {
     console.log("seed error", seedError);
   });
