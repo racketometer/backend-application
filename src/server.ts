@@ -12,7 +12,7 @@ import OpticsAgent from "optics-agent";
 
 import { AlgorithmMediator } from "./algorithms";
 
-const GRAPHQL_PORT = 8080;
+const GRAPHQL_PORT = process.env.PORT || 8080;
 
 (mongoose as any).Promise = global.Promise;
 
