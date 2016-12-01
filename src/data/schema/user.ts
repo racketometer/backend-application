@@ -1,9 +1,5 @@
 const user = `
-  type UserRef {
-    _id: String,
-    name: String
-  }
-
+  # User type representing players, coaches and consultants
   type User {
     _id: String,
     displayName: String,
@@ -16,13 +12,14 @@ const user = `
     allowSharing: Boolean,
     birthday: String,
     startedPlaying: String,
-    coaches: [ UserRef ],
-    friends: [ UserRef ],
+    coaches: [ User ],
+    friends: [ User ],
     createdAt: String,
     updatedAt: String,
     measurements: [ Measurement ]
   }
 
+  # Input type for creating new users
   input AutoUser {
     firstName: String!,
     lastName: String!,

@@ -5,6 +5,7 @@ const query = `
       token: String!
     ): Viewer
 
+    # Function for authentication users
     login(
       email: String!,
       password: String!
