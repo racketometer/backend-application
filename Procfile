@@ -1,3 +1,4 @@
 "scripts": {
-  "web": "webpack && node dist/server.js"
+  "web": "webpack"
+  "node": ""web": "node dist/server.js"
 }
