@@ -12,7 +12,7 @@
     "start": "concurrently \"npm run ts\" \"npm run nodemon\"",
     "tslint": "tslint \"src/**/*.ts\"",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "test": "nyc --require ts-node/register ./node_modules/.bin/_mocha"
+    "test": "cross-env NODE_ENV=test nyc --require ts-node/register ./node_modules/.bin/_mocha"
   },
   "nyc": {
     "include": [
