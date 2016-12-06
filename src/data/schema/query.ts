@@ -1,11 +1,13 @@
 const query = `
   # List of possible queries
   type Query {
+    # Get the current viewer
     viewer(
+      # Authentication token
       token: String!
     ): Viewer
 
-    # Function for authentication users
+    # Authenticate user
     login(
       email: String!,
       password: String!

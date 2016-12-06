@@ -19,7 +19,7 @@ const mutationViewer = `
       newPassword: String!
     ): User
 
-    # Logout: returns true if successful
+    # Perform logout if requested. Return true if successfull.
     logout: Boolean
   }
 `;
