@@ -7,6 +7,7 @@ import Schema from "./data/schema";
 import Resolvers from "./data/resolvers";
 import { MongooseConnection } from "./data/connectors";
 import * as http from "http";
+import * as cors from "cors";
 
 import OpticsAgent from "optics-agent";
 
@@ -17,6 +18,8 @@ const GRAPHQL_PORT = process.env.PORT || 8080;
 (mongoose as any).Promise = global.Promise;
 
 const app = express();
+
+app.use(cors());
 
 const executableSchema = makeExecutableSchema({
   typeDefs: Schema,
