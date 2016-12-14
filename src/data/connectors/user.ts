@@ -25,6 +25,7 @@ export const UserSchema = new Schema(
     coaches: [{ _id: String, name: String }],
     friends: [{ _id: String, name: String }],
     token: String,
+    createdBy: String,
   },
   {
     timestamps: true,
