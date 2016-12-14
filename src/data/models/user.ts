@@ -53,10 +53,7 @@ export class User extends Authorize {
    * @param id of the creator.
    */
   public static findUsersByCreatedBy(id: String): Promise<Array<IUser>> {
-    return db.find({createdBy: id}).then(users => {
-      console.log(users);
-      return users;
-    });
+    return db.find({createdBy: id}).then(users => users);
   }
 
   /**
