@@ -7,8 +7,5 @@ export interface IViewerUsers {
 type UsersResolver = (root: IUser, creatorId: IViewerUsers ) => Promise<Array<IUser>>
 
 export const users: UsersResolver = (viewer, { creatorId }) => {
-  if (creatorId) {
-    return User.findUsersCreatedBy(creatorId);
-  }
-  return User.findUsersCreatedBy(viewer._id);
+  return User.findUsersByCreatedBy(creatorId || viewer._id);
 };

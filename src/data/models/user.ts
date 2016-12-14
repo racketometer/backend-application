@@ -52,7 +52,7 @@ export class User extends Authorize {
    * Finds User by createdBy.
    * @param id of the creator.
    */
-  public static findUsersCreatedBy(id: String): Promise<Array<IUser>> {
+  public static findUsersByCreatedBy(id: String): Promise<Array<IUser>> {
     return db.find({createdBy: id}).then(users => {
       console.log(users);
       return users;
