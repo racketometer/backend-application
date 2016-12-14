@@ -49,6 +49,8 @@ const user = `
     startedPlaying: String!,
     # Indicate if user has allowed anonymous data sharing.
     allowSharing: Boolean!
+    # Indicate if user is a coach.
+    isCoach: Boolean!
   }
 `;
 
