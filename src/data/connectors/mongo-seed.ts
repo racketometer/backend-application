@@ -1,13 +1,25 @@
 const data = {
   "users": {
     "_model": "User",
+    "consultant": {
+      "displayName": "consultant",
+      "email": "consultant@test.dk",
+      "password": "1234",
+      "firstName": "Mark",
+      "lastName": "Boho",
+      "isConsultant": "true",
+      "isCoach": "true",
+      "birthday": "2000-09-27T11:39:22.993Z",
+      "startedPlaying": "2011-09-27T11:39:22.993Z",
+      "token": "token3",
+    },
     "coach": {
       "displayName": "coach",
       "email": "coach@test.dk",
       "password": "1234",
       "firstName": "Johnny",
       "lastName": "Bravo",
-      "isConsultant": "true",
+      "isConsultant": "false",
       "isCoach": "true",
       "birthday": "2016-09-27T11:39:22.993Z",
       "startedPlaying": "2016-09-27T11:39:22.993Z",
