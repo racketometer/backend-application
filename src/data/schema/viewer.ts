@@ -7,6 +7,8 @@ const viewer = `
     token: String
     # Current user
     user: User
+    # My user
+    users(creatorId: String): [User]
     # User's measurements if no user id is provided. Otherwise the provided user id's measurements.
     measurements(userId: String): [ Measurement ]
   }

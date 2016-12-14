@@ -14,6 +14,7 @@ export const createAutoUser: (root: IViewer, arg: IAutoUserArgument) => Promise<
 
       user.isConsultant = false;
       user.isCoach = false;
+      user.createdBy = root._id;
 
       // Generate 8 character long password found at:
       // http://stackoverflow.com/a/9719815

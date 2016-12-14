@@ -38,6 +38,7 @@ const data = {
         { "name": "->users.coach.displayName", "_id": "->users.coach" },
       ],
       "token": "token2",
+      "createdBy": "->users.coach",
     },
   },
   "measurements": {

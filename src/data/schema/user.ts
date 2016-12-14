@@ -31,6 +31,8 @@ const user = `
     createdAt: String,
     # User updated at this date
     updatedAt: String,
+    # User created by user with this id
+    createdBy: String,
     # List of related measurements
     measurements: [ Measurement ]
   }

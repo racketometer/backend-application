@@ -19,6 +19,7 @@ export interface IUser {
   token?: string;
   updatedAt?: Date;
   createdAt?: Date;
+  createdBy?: string;
 }
 
 export class User extends Authorize {
@@ -27,7 +28,7 @@ export class User extends Authorize {
    * Finds User by id.
    * @param id User id.
    */
-  public static findOneById(id: string): Promise<IUser>  {
+  public static findOneById(id: string): Promise<IUser> {
     return db.findById(id).then(user => user);
   }
 
@@ -41,10 +42,21 @@ export class User extends Authorize {
 
   /**
    * Finds User by email.
-   * @param token authentication token.
+   * @param email to find user by.
    */
   public static findOneByEmail(email: string): Promise<IUser> {
-    return db.findOne({ email }).then( user => user );
+    return db.findOne({ email }).then(user => user);
+  }
+
+  /**
+   * Finds User by createdBy.
+   * @param id of the creator.
+   */
+  public static findUsersCreatedBy(id: String): Promise<Array<IUser>> {
+    return db.find({createdBy: id}).then(users => {
+      console.log(users);
+      return users;
+    });
   }
 
   /**
