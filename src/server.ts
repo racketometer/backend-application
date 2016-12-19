@@ -1,59 +1,47 @@
-import * as express from "express";
-import * as mongoose from "mongoose";
-import { graphqlExpress, graphiqlExpress } from "graphql-server-express";
-import { makeExecutableSchema } from "graphql-tools";
 import * as bodyParser from "body-parser";
-import Schema from "./data/schema";
-import Resolvers from "./data/resolvers";
-import { MongooseConnection } from "./data/connectors";
-import * as http from "http";
 import * as cors from "cors";
+import * as express from "express";
+import * as http from "http";
+import * as mongoose from "mongoose";
 
-import OpticsAgent from "optics-agent";
+import { MongoConnector } from "./connectors";
+import { GraphQLServer } from "./graphql";
+import { AlgorithmMediator, AppConfig } from "./services";
 
-import { AlgorithmMediator } from "./algorithms";
-
-const GRAPHQL_PORT = process.env.PORT || 8080;
-
+// Set mongoose promise implementation to native Node promises
 (mongoose as any).Promise = global.Promise;
 
-const app = express();
+export class Server {
+  /**
+   * Express server instance.
+   */
+  public expressServer: express.Express;
 
-app.use(cors());
+  private readonly appConfig: AppConfig;
 
-const executableSchema = makeExecutableSchema({
-  typeDefs: Schema,
-  resolvers: Resolvers,
-  resolverValidationOptions: { requireResolversForNonScalar: false },
-});
+  /**
+   * Server entry point.
+   */
+  constructor() {
+    this.appConfig = new AppConfig();
+    this.expressServer = express();
+    this.setupMiddleware();
 
-OpticsAgent.instrumentSchema(executableSchema);
+    const mongoConnector = new MongoConnector(this.appConfig.mongoDbUrl, this.appConfig.isDevelopment);
+    mongoConnector.mongooseConnection
+      .then(() => {
+        const graphqlServer = new GraphQLServer(this.expressServer, this.appConfig.graphQLPort);
 
-app.use(OpticsAgent.middleware());
+        const algorithmMediator = new AlgorithmMediator();
+        algorithmMediator.getAnalysis();
+      });
+  }
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+  private setupMiddleware(): void {
+    this.expressServer.use(cors());
+    this.expressServer.use(bodyParser.urlencoded({ extended: true }));
+    this.expressServer.use(bodyParser.json());
+  }
+}
 
-app.use("/graphql", graphqlExpress((req) => {
-
-  return {
-    schema: executableSchema,
-    context: { opticsContext: OpticsAgent.context(req) },
-  };
-}));
-
-app.use("/graphiql", graphiqlExpress({
-  endpointURL: "/graphql",
-}));
-
-app.listen(GRAPHQL_PORT, () => {
-  console.log(`GraphQL Server is now running on http://localhost:${GRAPHQL_PORT}/graphql`);
-  console.log(`GraphiQL Server is now running on http://localhost:${GRAPHQL_PORT}/graphiql`);
-
-  MongooseConnection.then(() => {
-    const algorithmMediator = new AlgorithmMediator();
-    algorithmMediator.getAnalysis();
-  });
-});
-
-export const server = http.createServer(app);
+export const server = http.createServer(new Server().expressServer);
