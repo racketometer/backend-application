@@ -12,7 +12,7 @@
     "start": "concurrently \"npm run ts\" \"npm run nodemon\"",
     "tslint": "tslint \"src/**/*.ts\"",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "test": "cross-env NODE_ENV=test nyc --require ts-node/register ./node_modules/.bin/_mocha"
+    "test": "cross-env NODE_ENV=test nyc --all --require ts-node/register mocha"
   },
   "nyc": {
     "include": [
@@ -84,6 +84,7 @@
     "@types/chai": "3.4.34",
     "@types/cors": "0.0.33",
     "@types/mocha": "2.2.33",
+    "@types/optics-agent": "1.0.0",
     "@types/sinon": "1.16.31",
     "awesome-typescript-loader": "2.2.4",
     "chai": "3.5.0",
