@@ -221,8 +221,8 @@ export class AnalysisAlgorithm {
               Math.sqrt(
                 Math.pow(gyrXSeq[j][antalSamples - 1], 2) +
                 Math.pow(gyrYSeq[j][antalSamples - 1], 2) +
-                Math.pow(gyrZSeq[j][antalSamples - 1], 2),
-              ),
+                Math.pow(gyrZSeq[j][antalSamples - 1], 2)
+              )
             );
 
             // vinkelacceleration (deg/s^2)
