@@ -217,13 +217,9 @@ export class AnalysisAlgorithm {
             const point3 = antalSamples - 1 - i;
 
             // vinklehastighed (deg/s)
-            vinkelhastighed.push(
-              Math.sqrt(
-                Math.pow(gyrXSeq[j][antalSamples - 1], 2) +
-                Math.pow(gyrYSeq[j][antalSamples - 1], 2) +
-                Math.pow(gyrZSeq[j][antalSamples - 1], 2)
-              )
-            );
+            vinkelhastighed.push(Math.sqrt(Math.pow(gyrXSeq[j][antalSamples - 1], 2) +
+              Math.pow(gyrYSeq[j][antalSamples - 1], 2) +
+              Math.pow(gyrZSeq[j][antalSamples - 1], 2)));
 
             // vinkelacceleration (deg/s^2)
             vinkelacceleration.push((point2 - point1) / ((point4 - point3) / hz));
