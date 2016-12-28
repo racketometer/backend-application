@@ -5,7 +5,6 @@
 
 import { GraphQLSchema } from "graphql";
 import { Request, Response } from "express";
-import { Server } from "hapi";
 
 declare namespace OpticsAgent {
   export interface Options {
@@ -62,7 +61,7 @@ declare namespace OpticsAgent {
     configureAgent(options: OpticsAgent.Options): Agent;
     instrumentSchema(schema: GraphQLSchema): void;
     middleware(): (req: Request, res: Response, next?: any) => void;
-    instrumentHapiServer(server: Server): void;
+    instrumentHapiServer(server: any): void;
     context(req: Request): any;
   }
 }
@@ -70,7 +69,7 @@ declare namespace OpticsAgent {
 export function configureAgent(options: OpticsAgent.Options): OpticsAgent.Agent;
 export function instrumentSchema(schema: GraphQLSchema): void;
 export function middleware(): (req: Request, res: Response, next?: any) => void;
-export function instrumentHapiServer(server: Server): void;
+export function instrumentHapiServer(server: any): void;
 export function context(req: Request): any;
 
 export default {
