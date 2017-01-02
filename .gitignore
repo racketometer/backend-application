@@ -2,6 +2,5 @@ node_modules/
 npm-debug.log
 dist/
 coverage/
-!types/mongoose-seeder/node_modules
 .tmp/
 .nyc_output/

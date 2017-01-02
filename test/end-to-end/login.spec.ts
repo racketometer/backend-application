@@ -1,8 +1,8 @@
-import * as sinon from "sinon";
 import * as http from "http";
-import { expect } from "chai";
+import * as sinon from "sinon";
 
-const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+import { expect } from "chai";
+import { XMLHttpRequest } from "xmlhttprequest";
 
 const baseUrl = "http://localhost:8080/graphql";
 
@@ -62,4 +62,3 @@ describe("query Login", () => {
     request.send(payloadWrongPassword);
   });
 });
-
