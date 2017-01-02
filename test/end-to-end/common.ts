@@ -1,18 +1,17 @@
-import * as sinon from "sinon";
 import * as http from "http";
-import { expect } from "chai";
-import { server } from "../../src/server";
 import * as Mongoose from "mongoose";
+import * as sinon from "sinon";
+import { server } from "../../src/server";
 
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
-describe("Integration test", function () {
+describe("Integration test", () => {
   this.timeout(10000);
 
   before((done) => {
     server.listen(3000, "localhost");
-    server.on("listening", function () {
-      setTimeout(function () {
+    server.on("listening", () => {
+      setTimeout(() => {
         // waiting for seeding to happen
         done();
       }, 2500);

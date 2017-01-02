@@ -1,8 +1,8 @@
-import * as sinon from "sinon";
 import * as http from "http";
-import { expect } from "chai";
+import * as sinon from "sinon";
 
-const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+import { expect } from "chai";
+import { XMLHttpRequest } from "xmlhttprequest";
 
 const baseUrl = "http://localhost:8080/graphql";
 
@@ -27,7 +27,7 @@ describe("query Viewer", () => {
   beforeEach((done) => {
     let request = new XMLHttpRequest();
     request.onload = () => {
-      const obj = JSON.parse(request.responseText)
+      const obj = JSON.parse(request.responseText);
       token = obj.data.login.token;
       id = obj.data.login._id;
 
@@ -45,7 +45,7 @@ describe("query Viewer", () => {
           }
         `,
         variables: {
-          token: token,
+          token,
           userId: id,
         },
       });
