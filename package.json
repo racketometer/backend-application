@@ -78,7 +78,6 @@
     "tslint": "4.1.1",
     "typed-graphql": "1.0.2",
     "typescript": "2.1.4",
-    "webpack": "1.14.0",
-    "xmlhttprequest": "1.8.0"
+    "webpack": "1.14.0"
   }
 }

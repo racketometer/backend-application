@@ -1,9 +1,7 @@
 import { expect } from "chai";
-import { XMLHttpRequest } from "xmlhttprequest";
+import { request } from "./request";
 
-const baseUrl = "http://localhost:8080/graphql";
-
-const payload = JSON.stringify({
+const loginPayload = JSON.stringify({
   query: `
     query login {
       login(email: "athlete@test.dk", password: "1234") {
@@ -14,104 +12,77 @@ const payload = JSON.stringify({
   `,
 });
 
+const viewerPayload = {
+  query: `
+    query viewer($token: String!, $userId: String!) {
+      viewer(token: $token) {
+        user {
+          _id
+        }
+        measurements(userId: $userId) {
+          date
+        }
+      }
+    }
+  `,
+  variables: {
+    token: undefined,
+    userId: undefined,
+  },
+};
+
+const viewerNoTokenPayload = {
+  query: `
+    query viewer($token: String!) {
+      viewer(token: $token) {
+        _id
+      }
+    }
+  `,
+  variables: {
+    token: "someNonValidToken",
+  },
+};
+
 describe("query Viewer", () => {
-
-  let token: string;
   let id: string;
-  let payloadViewer: string;
-  let payloadViewerNoToken: string;
 
-  beforeEach((done) => {
-    let request = new XMLHttpRequest();
-    request.onload = () => {
-      const obj = JSON.parse(request.responseText);
-      token = obj.data.login.token;
-      id = obj.data.login._id;
+  beforeEach(() => {
+    return request<{ login: { _id: string, token: string } }>(loginPayload)
+      .then((response) => {
+        const token = response.data.login.token;
+        id = response.data.login._id;
 
-      payloadViewer = JSON.stringify({
-        query: `
-          query viewer($token: String!, $userId: String!) {
-            viewer(token: $token) {
-              user {
-                _id
-              }
-              measurements(userId: $userId) {
-                date
-              }
-            }
-          }
-        `,
-        variables: {
-          token,
-          userId: id,
-        },
+        viewerPayload.variables.token = token;
+        viewerPayload.variables.userId = id;
       });
+  });
 
-      payloadViewerNoToken = JSON.stringify({
-        query: `
-          query viewer($token: String!) {
-            viewer(token: $token) {
-              user {
-                _id
-              }
-            }
-          }
-        `,
-        variables: {
-          token: null,
-        },
+  it("should return status code 200", () => {
+    return request<void>(JSON.stringify(viewerPayload))
+      .then((response) => {
+        expect(response.message.statusCode).eq(200);
       });
-
-      done();
-    };
-
-    request.open("POST", baseUrl);
-    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    request.send(payload);
-
   });
 
-  it("returns status code 200", (done) => {
-    let request = new XMLHttpRequest();
-    request.onload = () => {
-      expect(request.status).eq(200);
-      done();
-    };
-    request.open("POST", baseUrl);
-    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    request.send(payloadViewer);
+  it("should return user model", () => {
+    return request<{ viewer: { user: { _id: string } } }>(JSON.stringify(viewerPayload))
+      .then((response) => {
+        expect(response.data.viewer.user._id).eq(id);
+      });
   });
 
-  it("returns with a user model", (done) => {
-    let request = new XMLHttpRequest();
-    request.onload = () => {
-      expect(JSON.parse(request.responseText).data.viewer.user._id).eq(id);
-      done();
-    };
-    request.open("POST", baseUrl);
-    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    request.send(payloadViewer);
+  it("should return measurements", () => {
+    return request<{ viewer: { measurements: {} } }>(JSON.stringify(viewerPayload))
+      .then((response) => {
+        expect(response.data.viewer.measurements).is.not.null;
+      });
   });
 
-  it("can get measurements", (done) => {
-    let request = new XMLHttpRequest();
-    request.onload = () => {
-      expect(JSON.parse(request.responseText).data.viewer.measurements).is.not.null;
-      done();
-    };
-    request.open("POST", baseUrl);
-    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    request.send(payloadViewer);
-  });
-
-  it("Not Authorized when token is wrong: status code 400 received", (done) => {
-    let request = new XMLHttpRequest();
-    request.onload = () => {
-      expect(request.status).eq(400);
-      done();
-    };
-    request.open("POST", baseUrl);
-    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    request.send(payloadViewerNoToken);
+  it("should return viewer with null if not authorized", () => {
+    return request<{ viewer: null }>(JSON.stringify(viewerNoTokenPayload))
+      .then((response) => {
+        expect(response.data.viewer).to.be.null;
+      });
   });
 });

@@ -1,9 +1,9 @@
 import * as http from "http";
 import * as Mongoose from "mongoose";
-import * as sinon from "sinon";
 import { server } from "../../src/server";
 
-describe("Integration test", function () {
+// tslint:disable-next-line:only-arrow-functions
+describe("Integration tests", function () {
   let httpServer: http.Server;
   this.timeout(10000);
 
@@ -25,5 +25,4 @@ describe("Integration test", function () {
 
   require("./login.spec");
   require("./viewer.spec");
-
 });
