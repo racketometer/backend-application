@@ -12,29 +12,8 @@
     "start": "concurrently \"npm run ts\" \"npm run nodemon\"",
     "tslint": "tslint \"src/**/*.ts\"",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "test": "cross-env NODE_ENV=test nyc --require ts-node/register ./node_modules/.bin/_mocha"
-  },
-  "nyc": {
-    "include": [
-      "src/**/*.ts"
-    ],
-    "exclude": [
-      "node_modules/",
-      "dist/"
-    ],
-    "extension": [
-      ".ts"
-    ],
-    "require": [
-      "ts-node/register"
-    ],
-    "reporter": [
-      "lcov",
-      "text-summary",
-      "html"
-    ],
-    "sourceMap": true,
-    "instrument": true
+    "test": "cross-env NODE_ENV=test nyc mocha --opts test/unit.mocha.opts",
+    "test:int": "cross-env NODE_ENV=test mocha --opts test/int.mocha.opts"
   },
   "repository": {
     "type": "git",

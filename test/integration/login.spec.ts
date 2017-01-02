@@ -1,6 +1,3 @@
-import * as http from "http";
-import * as sinon from "sinon";
-
 import { expect } from "chai";
 import { XMLHttpRequest } from "xmlhttprequest";
 
@@ -9,7 +6,7 @@ const baseUrl = "http://localhost:8080/graphql";
 const payload = JSON.stringify({
   query: `
     query login {
-      login(email: "johnny@test.dk", password: "1234") {
+      login(email: "athlete@test.dk", password: "1234") {
         _id
       }
     }
@@ -19,7 +16,7 @@ const payload = JSON.stringify({
 const payloadWrongPassword = JSON.stringify({
   query: `
     query login {
-      login(email: "johnny@test.dk", password: "1111") {
+      login(email: "athlete@test.dk", password: "1111") {
         _id
       }
     }
