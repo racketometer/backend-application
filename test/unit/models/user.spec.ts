@@ -6,26 +6,25 @@ import { IUser, User } from "../../../src/models";
 // inspiration to mock sinon date found her:
 // http://stackoverflow.com/questions/31591098/how-do-i-stub-new-date-using-sinon
 
-describe("Models: User", () => {
+describe("Models.User", () => {
   let sandbox: sinon.SinonSandbox;
   let clock: sinon.SinonFakeTimers;
-  let today: Date = new Date();
-  let email = "mymail@test.dk";
-  let token = "30213n0ek0x";
-  let id = "thisisanid";
-
-  let ret: IUser = {
-    displayName: "test",
-    firstName: "test",
-    lastName: "test",
-    email: "hho",
-    password: "nono",
-    updatedAt: new Date("2016-11-15T13:29:25.575Z"),
-  };
+  let today: Date;
+  let user: IUser;
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
+    today = new Date();
     clock = sinon.useFakeTimers(today.getTime());
+    user = {
+      displayName: "test",
+      firstName: "test",
+      lastName: "test",
+      email: "hho",
+      password: "nono",
+      updatedAt: new Date(today),
+    };
+    user.updatedAt.setHours(today.getHours() - 1);
   });
 
   afterEach(() => {
@@ -33,53 +32,70 @@ describe("Models: User", () => {
     clock.restore();
   });
 
-  it("Setup: Test that updatedAt is not equals today", () => {
-    expect(ret.updatedAt).is.not.eq(today);
-  });
+  describe("findOneById()", () => {
+    it("should call findById with id", () => {
+      const id = "thisisanid";
+      const spy = sandbox.spy(db, "findById");
 
-  it("User.findOneById: findById have been called with id", () => {
-    const spy = sandbox.spy(db, "findById");
-    User.findOneById(id);
+      User.findOneById(id);
 
-    expect(spy.calledWith(id)).to.be.true;
-  });
-
-  it("User.findOneByToken: findOne have been called with token", () => {
-    const spy = sandbox.spy(db, "findOne");
-    User.findOneByToken(token);
-
-    expect(spy.calledWith({ token })).to.be.true;
-  });
-
-  it("User.findOneByEmail: findOne have been called with email", () => {
-    const spy = sandbox.spy(db, "findOne");
-    User.findOneByEmail(email);
-
-    expect(spy.calledWith({ email })).to.be.true;
-  });
-
-  it("User.create: updatedAt is set", () => {
-    User.create(ret).then((updated) => {
-      expect(updated.updatedAt).eq(today);
+      expect(spy.calledWith(id)).to.be.true;
     });
   });
 
-  it("User.create: create have been called", () => {
-    const spy = sandbox.spy(db, "create");
-    let test = User.create(ret);
-    expect(spy.called).to.be.true;
-  });
+  describe("findOneByToken()", () => {
+    it("should call findOne with token", () => {
+      const token = "30213n0ek0x";
+      const spy = sandbox.spy(db, "findOne");
 
-  it("User.save: updatedAt is set", () => {
-    User.save(ret).then((updated) => {
-      expect(updated.updatedAt).eq(today);
+      User.findOneByToken(token);
+
+      expect(spy.calledWith({ token })).to.be.true;
     });
   });
 
-  it("User.save: findByIdAndUpdate have been called", () => {
-    const spy = sandbox.spy(db, "findByIdAndUpdate");
-    User.save(ret);
+  describe("findOneByEmail()", () => {
+    it("should call findOne with email", () => {
+      const email = "mymail@test.dk";
+      const spy = sandbox.spy(db, "findOne");
 
-    expect(spy.called).to.be.true;
+      User.findOneByEmail(email);
+
+      expect(spy.calledWith({ email })).to.be.true;
+    });
+  });
+
+  describe("create()", () => {
+    it("should set updatedAt", () => {
+      User.create(user)
+        .then((updated) => {
+          expect(updated.updatedAt).eq(today);
+        });
+    });
+
+    it("should call create", () => {
+      const spy = sandbox.spy(db, "create");
+
+      User.create(user);
+
+      expect(spy.called).to.be.true;
+    });
+  });
+
+  describe("save()", () => {
+    it("should set updatedAt", () => {
+      User.save(user)
+        .then((updated) => {
+          expect(updated.updatedAt).eq(today);
+        });
+    });
+
+    it("should call findByIdAndUpdate", () => {
+      const spy = sandbox.spy(db, "findByIdAndUpdate");
+
+      User.save(user);
+
+      expect(spy.called).to.be.true;
+    });
   });
 });
