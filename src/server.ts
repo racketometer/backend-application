@@ -1,7 +1,6 @@
 import * as bodyParser from "body-parser";
 import * as cors from "cors";
 import * as express from "express";
-import * as http from "http";
 import * as mongoose from "mongoose";
 
 import { MongoConnector } from "./connectors";
@@ -44,4 +43,4 @@ export class Server {
   }
 }
 
-export const server = http.createServer(new Server().expressServer);
+export const server = new Server();

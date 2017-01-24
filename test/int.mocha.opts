@@ -1,4 +1,3 @@
 --compilers ts-node/register
 --full-trace
---bail
-test/unit/**/*.spec.ts
+test/integration/entry.spec.ts
