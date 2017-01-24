@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Backend application for the Racket O Meter platform.",
   "scripts": {
-    "clean": "rimraf node_modules coverage .nyc_output",
+    "clean": "rimraf node_modules coverage .nyc_output dist",
     "mongodb": "mongod --dbpath=C:/data --port 27017",
     "nodemon": "nodemon --watch dist dist/server.js",
     "ts": "webpack --watch",
