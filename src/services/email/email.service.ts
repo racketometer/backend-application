@@ -23,7 +23,7 @@ export class EmailService {
     return new Promise<IEmailResponse>((resolve, reject) => {
 
       if (email.isValid()) {
-        this.transporter.sendMail(this.emailToMailOptions(email), (error, info) => {
+        this.transporter.sendMail(this.emailToMailOptions(email), (error) => {
           if (error) {
             return reject(this.createResponse("Error sending mail: " + error));
           }

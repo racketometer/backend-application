@@ -6,7 +6,7 @@ export interface ILoginArgument {
 }
 
 type LoginResolver = (viewer: IViewer, arg: ILoginArgument) => Promise<IViewer>;
-export const login: LoginResolver = (root, { email, password }) => {
+export const login: LoginResolver = (_, { email, password }) => {
   return User.authorize(email, password)
     .then((user) => {
       const viewer = {
