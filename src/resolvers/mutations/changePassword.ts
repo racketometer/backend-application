@@ -1,5 +1,5 @@
 import { IUser, IViewer, User } from "../../models";
-import { AppConfig, Email, EmailService } from "../../services";
+import { Email, EmailService } from "../../services";
 
 export interface IChangePasswordArgument {
   oldPassword: string;
@@ -18,7 +18,7 @@ export const changePassword: (root: IViewer, args: IChangePasswordArgument) => P
       existingUser.token = null;
 
       return User.save(existingUser)
-        .then((newUser) => {
+        .then(() => {
           const email = new Email(existingUser.email,
             "Password changed for Racket O Meter",
             `Your password has been changed.`,

@@ -17,6 +17,7 @@ export class Server {
   public expressServer: express.Express;
 
   private readonly appConfig: AppConfig;
+  private graphqlServer: GraphQLServer;
 
   /**
    * Server entry point.
@@ -29,7 +30,7 @@ export class Server {
     const mongoConnector = new MongoConnector(this.appConfig.mongoDbUrl, this.appConfig.isDevelopment);
     mongoConnector.mongooseConnection
       .then(() => {
-        const graphqlServer = new GraphQLServer(this.expressServer, this.appConfig.graphQLPort);
+        this.graphqlServer = new GraphQLServer(this.expressServer, this.appConfig.graphQLPort);
 
         const algorithmMediator = new AlgorithmMediator();
         algorithmMediator.getAnalysis();
