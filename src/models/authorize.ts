@@ -43,7 +43,7 @@ export class Authorize {
   public static clear(id: string): Promise<void> {
     return db.findById(id).then((doc) => {
       doc.token = null;
-      return doc.save().then((user) => undefined);
+      return doc.save().then(() => undefined);
     })
     .catch(() => {
       throw Error();

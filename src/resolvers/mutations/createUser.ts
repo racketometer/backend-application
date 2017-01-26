@@ -6,7 +6,7 @@ export interface ICreateUserArgument {
   password: string;
 }
 
-export const createUser: (root: IViewer, arg: ICreateUserArgument) => Promise<IUser> = (root, { email, password }) => {
+export const createUser: (root: IViewer, arg: ICreateUserArgument) => Promise<IUser> = (_, { email, password }) => {
   return User.findOneByEmail(email)
     .then((existingUser) => {
       if (existingUser) {
@@ -25,6 +25,7 @@ export const createUser: (root: IViewer, arg: ICreateUserArgument) => Promise<IU
           return user;
         })
         .catch((err) => {
+          console.error(err);
           throw Error("CreateUser: Error creating user");
         });
     });

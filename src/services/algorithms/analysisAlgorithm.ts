@@ -59,7 +59,7 @@ export class AnalysisAlgorithm {
    * Columns refer to values as: [Gyro X, Gyro Y, Gyro Z, Acc X, Acc Y, Acc Z]
    */
   public getResults(data: Array<Array<number>>): Promise<IAnalysisResult> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const SmashTest = data;
 
       // forskellen mellem to på hinanden følgende sampleværdier - defineret vibration <<<<<--- vigtig
