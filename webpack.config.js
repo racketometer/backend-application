@@ -20,14 +20,14 @@ module.exports = {
     libraryTarget: "commonjs",
   },
   resolve: {
-    extensions: ["", ".ts", ".js", ".json"],
+    extensions: [".ts", ".js", ".json"],
   },
   externals: [
     nodeModules,
   ],
   devtool: "eval-source-map",
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.ts$/,
         loader: "awesome-typescript-loader",
