@@ -8,7 +8,7 @@ cache:
   - node_modules
 
 script:
-  - npm run tslint
+  - npm run lint
   - npm run build
   - npm run test
   - npm run test:int

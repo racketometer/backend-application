@@ -1,4 +1,4 @@
-import * as UUID from "node-uuid";
+import * as uuidv4 from "uuid/v4";
 import { User as db } from "../connectors";
 import { IUser } from "./user";
 
@@ -14,7 +14,7 @@ export class Authorize {
       if (!user) {
         throw Error("Could not authorize");
       }
-      user.token = UUID.v4();
+      user.token = uuidv4();
       return user.save();
     });
   }
