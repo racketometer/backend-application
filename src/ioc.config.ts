@@ -12,7 +12,7 @@ import {
 
 export const container = new Container();
 
-// Setup IoC mappings for all injectabletypes
+// Setup IoC mappings for all injectable types
 container.bind<AppConfig>(TYPES.AppConfig)
   .to(AppConfig);
 container.bind<AlgorithmMediator>(TYPES.AlgorithmMediator)
