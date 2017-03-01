@@ -1,4 +1,6 @@
-import { Measurement as db } from "../connectors";
+import { MongoConnector } from "../connectors";
+import { container } from "../ioc.config";
+import { TYPES } from "../ioc.types";
 import { IMeasurement } from "./";
 import { Authorize } from "./authorize";
 
@@ -24,6 +26,7 @@ export class Measurement extends Authorize {
    * @param id User id.
    */
   public static findManyByUserId(id: string): Promise<Array<IMeasurement>> {
+    const db = container.get<MongoConnector>(TYPES.MongoConnector).measurements;
     return db.find({ user_id: id })
       .then(((measurements) => measurements));
   }

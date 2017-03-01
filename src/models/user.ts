@@ -1,4 +1,6 @@
-import { User as db } from "../connectors";
+import { MongoConnector } from "../connectors";
+import { container } from "../ioc.config";
+import { TYPES } from "../ioc.types";
 import { Authorize } from "./authorize";
 
 export interface IUser {
@@ -29,6 +31,7 @@ export class User extends Authorize {
    * @param id User id.
    */
   public static findOneById(id: string): Promise<IUser> {
+    const db = container.get<MongoConnector>(TYPES.MongoConnector).users;
     return db.findById(id)
       .then((user) => user);
   }
@@ -38,6 +41,7 @@ export class User extends Authorize {
    * @param token authentication token.
    */
   public static findOneByToken(token: string): Promise<IUser> {
+    const db = container.get<MongoConnector>(TYPES.MongoConnector).users;
     return db.findOne({ token })
       .then((user) => user);
   }
@@ -47,6 +51,7 @@ export class User extends Authorize {
    * @param email to find user by.
    */
   public static findOneByEmail(email: string): Promise<IUser> {
+    const db = container.get<MongoConnector>(TYPES.MongoConnector).users;
     return db.findOne({ email })
       .then((user) => user);
   }
@@ -56,6 +61,7 @@ export class User extends Authorize {
    * @param id of the creator.
    */
   public static findUsersByCreatedBy(id: String): Promise<Array<IUser>> {
+    const db = container.get<MongoConnector>(TYPES.MongoConnector).users;
     return db.find({ createdBy: id })
       .then((users) => users);
   }
@@ -65,6 +71,7 @@ export class User extends Authorize {
    * @param token authentication token.
    */
   public static create(user: IUser): Promise<IUser> {
+    const db = container.get<MongoConnector>(TYPES.MongoConnector).users;
     return db.create(user);
   }
 
@@ -73,6 +80,7 @@ export class User extends Authorize {
    * @param user User to be updated.
    */
   public static save(user: IUser): Promise<IUser> {
+    const db = container.get<MongoConnector>(TYPES.MongoConnector).users;
     user.updatedAt = new Date();
     return db.findByIdAndUpdate(user._id, user, { new: true }).then((doc) => doc);
   }

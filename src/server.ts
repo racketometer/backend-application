@@ -1,39 +1,38 @@
 import * as bodyParser from "body-parser";
 import * as cors from "cors";
 import * as express from "express";
-import * as mongoose from "mongoose";
+import { inject, injectable } from "inversify";
 
 import { MongoConnector } from "./connectors";
 import { GraphQLServer } from "./graphql";
+import { TYPES } from "./ioc.types";
 import { AlgorithmMediator, AppConfig } from "./services";
 
-// Set mongoose promise implementation to native Node promises
-(mongoose as any).Promise = global.Promise;
-
+@injectable()
 export class Server {
   /**
    * Express server instance.
    */
   public expressServer: express.Express;
 
-  private readonly appConfig: AppConfig;
-  private graphqlServer: GraphQLServer;
-
   /**
    * Server entry point.
    */
-  constructor() {
-    this.appConfig = new AppConfig();
+  constructor(
+    @inject(TYPES.AppConfig) private appConfig: AppConfig,
+    @inject(TYPES.GraphQLServer) private graphqlServer: GraphQLServer,
+    @inject(TYPES.AlgorithmMediator) private algorithmMediator: AlgorithmMediator,
+    @inject(TYPES.MongoConnector) private mongoConnector: MongoConnector,
+  ) {
     this.expressServer = express();
     this.setupMiddleware();
 
-    const mongoConnector = new MongoConnector(this.appConfig.mongoDbUrl, this.appConfig.isDevelopment);
+    this.mongoConnector.connect(this.appConfig.mongoDbUrl, this.appConfig.isDevelopment);
     mongoConnector.mongooseConnection
       .then(() => {
-        this.graphqlServer = new GraphQLServer(this.expressServer, this.appConfig.graphQLPort);
-
-        const algorithmMediator = new AlgorithmMediator();
-        algorithmMediator.getAnalysis();
+        this.graphqlServer.express = this.expressServer;
+        this.graphqlServer.start();
+        this.algorithmMediator.getAnalysis();
       });
   }
 
@@ -43,5 +42,3 @@ export class Server {
     this.expressServer.use(bodyParser.json());
   }
 }
-
-export const server = new Server();

@@ -1,22 +1,26 @@
+import { inject, injectable } from "inversify";
+import {
+  IMeasurementModel,
+  MongoConnector,
+} from "../../connectors";
+import { TYPES } from "../../ioc.types";
 import {
   AnalysisAlgorithm,
   IAnalysisResult,
 } from "./";
 
-import { IMeasurementModel, Measurement } from "../../connectors";
-
+@injectable()
 export class AlgorithmMediator {
-  private analysisAlgorithm: AnalysisAlgorithm;
-
-  constructor() {
-    this.analysisAlgorithm = new AnalysisAlgorithm();
-  }
+  constructor(
+    @inject(TYPES.AnalysisAlgorithm) private analysisAlgorithm: AnalysisAlgorithm,
+    @inject(TYPES.MongoConnector) private mongoConnector: MongoConnector,
+  ) { }
 
   /**
    * Analyse a measurement and update result fields.
    */
   public getAnalysis(): Promise<void> {
-    return Measurement.findOne({ sensorNo: "123141" })
+    return this.mongoConnector.measurements.findOne({ sensorNo: "123141" })
       .then((document) => this.calculateFeatures(document));
   }
 

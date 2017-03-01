@@ -1,6 +1,7 @@
 import * as http from "http";
 import * as Mongoose from "mongoose";
-import { server } from "../../src/server";
+
+import { server } from "../../src/main";
 
 // tslint:disable-next-line:only-arrow-functions
 describe("Integration tests", function () {
