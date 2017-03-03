@@ -12,7 +12,7 @@ fs.readdirSync("node_modules")
   });
 
 module.exports = {
-  entry: "./src/server.ts",
+  entry: "./src/main.ts",
   target: "node",
   output: {
     filename: "server.js",

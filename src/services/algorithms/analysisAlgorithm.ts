@@ -1,6 +1,9 @@
 import { spawn } from "child_process";
+import { injectable } from "inversify";
+
 import { IAnalysisResult } from "./";
 
+@injectable()
 export class AnalysisAlgorithm {
   private static scriptFileName = "data_analyse.py";
 

@@ -1,5 +1,7 @@
+import { injectable } from "inversify";
 import * as Mongoose from "mongoose";
 import * as Seeder from "mongoose-seeder";
+
 import {
   IMeasurementModel,
   IUserModel,
@@ -8,26 +10,32 @@ import {
 } from "./";
 import { seedData } from "./mongo-seed";
 
-export const Measurement = Mongoose.model<IMeasurementModel>("Measurement", MeasurementSchema);
-export const User = Mongoose.model<IUserModel>("User", UserSchema);
-
+@injectable()
 export class MongoConnector {
-  public readonly mongooseConnection: Promise<void>;
+  public mongooseConnection: Promise<void>;
+
+  public users: Mongoose.Model<IUserModel>;
+  public measurements: Mongoose.Model<IMeasurementModel>;
 
   /**
    * Instantiate a MongoDB connection.
    * @param mongoDbConnectionString The URI for the MongoDB instance.
    * @param seed Enable data seed. This will **DROP** the excisting database.
    */
-  constructor(mongoDbConnectionString: string, seed?: boolean) {
+  public connect(mongoDbConnectionString: string, seed?: boolean) {
     this.mongooseConnection = Mongoose.connect(mongoDbConnectionString)
+      .then(() => {
+        this.log("Connected to MongoDB");
+        this.users = Mongoose.model<IUserModel>("User", UserSchema);
+        this.measurements = Mongoose.model<IMeasurementModel>("Measurement", MeasurementSchema);
+      }, (connectError) => {
+        this.log("Could not connect to MongoDB:", connectError);
+      })
       .then(() => {
         if (seed) {
           return this.seedTestData()
             .catch((seedError) => this.log("Seed error", seedError));
         }
-      }, (connectError) => {
-        this.log("Could not connect to MongoDB:", connectError);
       });
   }
 
